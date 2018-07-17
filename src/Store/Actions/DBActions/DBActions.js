@@ -12,10 +12,10 @@ export default class DBActions{
             payload:message
         }
     }
-    static userResPush(obj){
+    static userResPush(obj, date){
         return{
             type: actionTypes.USER_RESPONSE_PUSH,
-            payload: obj
+            payload: {obj, date},
         }
     }
     static userResError(errText){
@@ -29,6 +29,25 @@ export default class DBActions{
         return{
             type: actionTypes.SAVE_LOCATION,
             payload: location
+        }
+    }
+
+    static getTime(){
+        return{
+            type: actionTypes.GET_TIME
+        }
+    }
+
+    static getTimeFail(errMsg){
+        return{
+            type: actionTypes.GET_TIME_SUCCESS,
+            payload: errMsg
+        }
+    }
+
+    static makeisErrorTrue(){
+        return{
+            type: actionTypes.MAKE_ISERROR_FALSE
         }
     }
 }

@@ -30,7 +30,7 @@ class AngryModal extends React.Component {
             location: this.props.currLocation
 
         }
-        this.props.userResPush(obj);
+        this.props.userResPush(obj, this.props.date);
     }
 
     componentDidMount() {
@@ -115,13 +115,14 @@ const styles = {
 }
 let mapStateToProps = (state) => {
     return {
-        currLocation: state.dbReducer.currLocation
+        currLocation: state.dbReducer.currLocation,
+        date: state.dbReducer.date
     }
 }
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        userResPush: (obj) => dispatch(DBActions.userResPush(obj))
+        userResPush: (obj,date) => dispatch(DBActions.userResPush(obj,date))
     }
 }
 

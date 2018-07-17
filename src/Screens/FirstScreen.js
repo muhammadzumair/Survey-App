@@ -14,6 +14,7 @@ class FirstScreen extends Component {
     }
     componentDidMount() {
         this.props.getLocations();
+        this.props.getDate();
     }
     handler = (value) => {
         this.props.locations.forEach(item => {
@@ -96,6 +97,7 @@ let mapDispatchToProps = (dispatch) => {
     return {
         getLocations: () => dispatch(DBActions.getLocationFromFirebase()),
         saveLoaction: (location) => dispatch(DBActions.saveLocation(location)),
+        getDate: () => dispatch(DBActions.getTime())
     }
 }
 
