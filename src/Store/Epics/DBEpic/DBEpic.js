@@ -29,7 +29,7 @@ export default class DBEpic {
                     }
                 })
                     .catch(err => {
-                        return Observalbe.of(DBActions.userResError(err.message))
+                        return Observable.of(DBActions.userResError(err.message))
                     })
             })
     }

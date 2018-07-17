@@ -26,7 +26,8 @@ class AngryModal extends React.Component {
         let obj = {
             userResponse: this.props.userResponse,
             reason,
-            timeStamp: Firebase.firestore.FieldValue.serverTimestamp()
+            timeStamp: Firebase.firestore.FieldValue.serverTimestamp(),
+            location: this.props.currLocation
 
         }
         this.props.userResPush(obj);
@@ -114,7 +115,7 @@ const styles = {
 }
 let mapStateToProps = (state) => {
     return {
-
+        currLocation: state.dbReducer.currLocation
     }
 }
 

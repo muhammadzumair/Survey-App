@@ -12,8 +12,10 @@ class Modal extends React.Component {
     componentDidMount() {
         let obj = {
             userResponse: this.props.userResponse,
-            timeStamp: Firebase.firestore.FieldValue.serverTimestamp()
+            timeStamp: Firebase.firestore.FieldValue.serverTimestamp(),
+            location: this.props.currLocation
         }
+        // console.log(Firebase.firestore.FieldValue.serverTimestamp())
         this.props.userResPush(obj);
         Tts.getInitStatus().then(() => {
             console.log(this.props);
@@ -74,7 +76,7 @@ const styles = {
 
 let mapStateToProps = (state) => {
     return {
-
+        currLocation: state.dbReducer.currLocation
     }
 }
 

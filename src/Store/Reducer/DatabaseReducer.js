@@ -5,7 +5,8 @@ let INITIAL_STATE = {
     isError: false,
     errorMessage: "",
     userResponsePush: '',
-    isProgress: false
+    isProgress: false,
+    currLocation: ''
 }
 
 export default function dbReducer(state = INITIAL_STATE, action) {
@@ -17,12 +18,13 @@ export default function dbReducer(state = INITIAL_STATE, action) {
 
         case actionTypes.USER_RESPONSE_PUSH:
             return {...state, isProgress: true};
-
         case actionTypes.USER_RESPONSE_PUSH_SUCCESS:
             return {...state, isProgress: false, userResponsePush: 'userResponsePush'};
-
         case actionTypes.USER_RESPONSE_PUSH_FAIL:
             return {...state, isError: true, isProgress: false}
+
+        case actionTypes.SAVE_LOCATION:
+            return {...state, currLocation: action.payload};
 
         default:
             return state;

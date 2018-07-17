@@ -26,7 +26,10 @@ class FirstScreen extends Component {
     buttonHandler = () => {
         console.log(this.state)
         if (this.state.key == this.state.inputText) {
+            this.props.saveLoaction(this.state.selected);
             this.props.navigation.navigate('main');
+        }else{
+            alert('Wrong Key');
         }
     }
 
@@ -91,7 +94,8 @@ let mapStateToProps = (state) => {
 }
 let mapDispatchToProps = (dispatch) => {
     return {
-        getLocations: () => dispatch(DBActions.getLocationFromFirebase())
+        getLocations: () => dispatch(DBActions.getLocationFromFirebase()),
+        saveLoaction: (location) => dispatch(DBActions.saveLocation(location)),
     }
 }
 

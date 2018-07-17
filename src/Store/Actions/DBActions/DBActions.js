@@ -24,4 +24,11 @@ export default class DBActions{
             payload: errText
         }
     }
+
+    static saveLocation(location){
+        return{
+            type: actionTypes.SAVE_LOCATION,
+            payload: location
+        }
+    }
 }
