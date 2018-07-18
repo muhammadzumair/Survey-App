@@ -19,6 +19,7 @@ class AngryModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            isClick: false
         }
     }
 
@@ -31,6 +32,7 @@ class AngryModal extends React.Component {
 
         }
         this.props.userResPush(obj, this.props.date);
+        this.setState({isClick: true});
     }
 
     componentDidMount() {
@@ -53,38 +55,47 @@ class AngryModal extends React.Component {
                                     <Image style={{ width: 25, height: 25 }} source={require('../../assets/no.png')} />
                                 </TouchableOpacity>
                             </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <View style={{ flex: 0.33, paddingLeft: width * 1 / 80 }}>
-                                    <Image resizeMode="contain" style={styles.smilyeStyle}
-                                        source={this.props.smilyeImage}
-                                    />
+
+
+                            {
+                                this.state.isClick ? 
+                                <View style={{flex: 1, justifyContent:'center', alignItems: 'center'}}>
+                                    <Text style={{fontSize: fontScale * 40}}>Thankyou</Text>
                                 </View>
-                                <View style={{ flex: 0.67, textAlign: 'center', paddingRight: width * 1 / 80 }}>
-                                    <Text style={{ color: '#2c3e50', textAlign: 'center', alignSelf: 'center', fontSize: fontScale * 20 }}>{this.props.text}</Text>
-                                    <View style={{ alignItems: 'center' }}>
-                                        <View style={{ flexDirection: 'row' }}>
-                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Waiting Time')}>
-                                                <Image style={styles.imagestyle} source={images.waitingTime} />
-                                                <Text>waiting Time</Text>
-                                            </TouchableOpacity>
-                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Attitude')}>
-                                                <Image style={styles.imagestyle} source={images.attitude} />
-                                                <Text>Attitude</Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                        <View style={{ flexDirection: 'row' }}>
-                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Enviroment')}>
-                                                <Image style={styles.imagestyle} source={images.environment} />
-                                                <Text>Enviroment</Text>
-                                            </TouchableOpacity>
-                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Bad Service')}>
-                                                <Image style={styles.imagestyle} source={images.badService} />
-                                                <Text>Bad Service</Text>
-                                            </TouchableOpacity>
+                                :
+
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <View style={{ flex: 0.33, paddingLeft: width * 1 / 80 }}>
+                                        <Image resizeMode="contain" style={styles.smilyeStyle}
+                                            source={this.props.smilyeImage}
+                                        />
+                                    </View>
+                                    <View style={{ flex: 0.67, textAlign: 'center', paddingRight: width * 1 / 80 }}>
+                                        <Text style={{ color: '#2c3e50', textAlign: 'center', alignSelf: 'center', fontSize: fontScale * 20 }}>{this.props.text}</Text>
+                                        <View style={{ alignItems: 'center' }}>
+                                            <View style={{ flexDirection: 'row' }}>
+                                                <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Waiting Time')}>
+                                                    <Image style={styles.imagestyle} source={images.waitingTime} />
+                                                    <Text>waiting Time</Text>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Attitude')}>
+                                                    <Image style={styles.imagestyle} source={images.attitude} />
+                                                    <Text>Attitude</Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                            <View style={{ flexDirection: 'row' }}>
+                                                <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Enviroment')}>
+                                                    <Image style={styles.imagestyle} source={images.environment} />
+                                                    <Text>Enviroment</Text>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Bad Service')}>
+                                                    <Image style={styles.imagestyle} source={images.badService} />
+                                                    <Text>Bad Service</Text>
+                                                </TouchableOpacity>
+                                            </View>
                                         </View>
                                     </View>
-                                </View>
-                            </View>
+                                </View>}
                         </View  >
                     </TouchableOpacity>
                 </Animatable.View>
@@ -122,7 +133,7 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        userResPush: (obj,date) => dispatch(DBActions.userResPush(obj,date))
+        userResPush: (obj, date) => dispatch(DBActions.userResPush(obj, date))
     }
 }
 
