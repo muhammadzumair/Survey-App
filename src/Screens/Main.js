@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Tts from 'react-native-tts';
 import Modal from '../Components/Modal';
 import AngryModal from '../Components/AngryModal';
-// import KeepAwake from 'react-native-keep-awake';
+import KeepAwake from 'react-native-keep-awake';
 const { width, height, fontScale, scale } = Dimensions.get('window');
 
 
@@ -70,9 +70,8 @@ class Main extends Component {
         console.log(this.state.isModalVisible);
         return (
             <View style={containerStyle}>
-                {/* <KeepAwake /> */}
+                <KeepAwake />
                 <StatusBar hidden />
-                {/* <KeepAwake /> */}
                 {
                     this.state.angryisVisible ?
                         <AngryModal userResponse={this.state.userResponse} toggleisVisible={this.toggleisVisible} setDefault={this.setDefault} text={this.state.text} smilyeImage={this.state.image} audioText={this.state.audioText} />

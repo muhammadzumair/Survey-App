@@ -149,8 +149,8 @@ android {
 
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    // compile project(':react-native-keep-awake')
-    compile project(':react-native-tts')
+    implementation project(':react-native-keep-awake')
+    implementation project(':react-native-tts')
     implementation project(':react-native-vector-icons')
 
     implementation project(':react-native-firebase')
