@@ -41,7 +41,7 @@ class FirstScreen extends Component {
     render() {
         this.props.isError ?
 
-            ToastAndroid.show(this.props.errorMessage, ToastAndroid.SHORT)
+            ToastAndroid.show('Not Internet Connected', ToastAndroid.SHORT)
             :
             null
 
