@@ -40,12 +40,12 @@ export default class DBActions{
 
     static getTimeFail(errMsg){
         return{
-            type: actionTypes.GET_TIME_SUCCESS,
+            type: actionTypes.GET_TIME_FAIL,
             payload: errMsg
         }
     }
 
-    static makeisErrorTrue(){
+    static makeisErrorFalse(){
         return{
             type: actionTypes.MAKE_ISERROR_FALSE
         }

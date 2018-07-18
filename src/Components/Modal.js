@@ -17,6 +17,7 @@ class Modal extends React.Component {
         }
         console.log('Time Stamp*************', obj);
         // console.log(Firebase.firestore.FieldValue.serverTimestamp())
+        
         this.props.userResPush(obj, this.props.date);
         Tts.getInitStatus().then(() => {
             console.log(this.props);

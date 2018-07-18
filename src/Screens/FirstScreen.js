@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StatusBar, View, Dimensions ,ToastAndroid} from 'react-native';
+import { StatusBar, View, Dimensions, ToastAndroid } from 'react-native';
 import Fire from '../Store/Firebase/firebaseDB';
 
 import { Container, Header, Title, Content, Button, Icon, Text, Right, Body, Left, Picker, Form, Item, Input, Label } from "native-base";
@@ -26,18 +26,26 @@ class FirstScreen extends Component {
     }
     buttonHandler = () => {
         console.log(this.state)
-        if (this.state.key == this.state.inputText) {
+        if (this.state.key == this.state.inputText && this.props.errorMessage.trim() == '') {
             this.props.saveLoaction(this.state.selected);
             this.props.navigation.navigate('main');
-        }else{
-            ToastAndroid.show("wrong password",ToastAndroid.SHORT);
+        } else if (this.props.errorMessage == 'ajax error 0') {
+            ToastAndroid.show("Not internet Connected", ToastAndroid.SHORT);
+        }
+        else {
+            ToastAndroid.show("wrong password", ToastAndroid.SHORT);
         }
     }
 
 
     render() {
-        this.props.isError?ToastAndroid.show(this.props.errorMessage,ToastAndroid.SHORT): null
-        
+        this.props.isError ?
+
+            ToastAndroid.show(this.props.errorMessage, ToastAndroid.SHORT)
+            :
+            null
+
+        this.props.makeisErrorFalse();
         return (
 
             <View style={{ flex: 1, alignItems: "center", justifyContent: "space-between", }} >
@@ -81,7 +89,7 @@ class FirstScreen extends Component {
                     </Item>
                 </View>
                 <View style={{ flex: 0.2, width: width * 1 / 2 }} >
-                    <Button style={{ alignSelf: 'center', width: width * 1 / 2 }} full onPress={() => {this.buttonHandler() }}>
+                    <Button style={{ alignSelf: 'center', width: width * 1 / 2 }} full onPress={() => { this.buttonHandler() }}>
                         <Text>Next</Text>
                     </Button>
                 </View>
@@ -93,15 +101,16 @@ class FirstScreen extends Component {
 let mapStateToProps = (state) => {
     return {
         locations: state.dbReducer.locations,
-        isError:state.dbReducer.isError,
-        errorMessage:state.dbReducer.errorMessage
+        isError: state.dbReducer.isError,
+        errorMessage: state.dbReducer.errorMessage
     }
 }
 let mapDispatchToProps = (dispatch) => {
     return {
         getLocations: () => dispatch(DBActions.getLocationFromFirebase()),
         saveLoaction: (location) => dispatch(DBActions.saveLocation(location)),
-        getDate: () => dispatch(DBActions.getTime())
+        getDate: () => dispatch(DBActions.getTime()),
+        makeisErrorFalse: () => dispatch(DBActions.makeisErrorFalse())
     }
 }
 
