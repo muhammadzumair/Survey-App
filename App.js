@@ -10,7 +10,7 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import FirstScreen from './src/Screens/FirstScreen';
-
+import Main from './src/Screens/Main';
 
 
 
@@ -25,10 +25,11 @@ export default class App extends Component {
 
 const Navigation = StackNavigator(
   {
-    firstScreen: FirstScreen
+    main: Main,
+    firstScreen: FirstScreen,
   },
   {
-    initialRouteName: "firstScreen",
+    initialRouteName: "main",
     headerMode: 'none',
     mode: 'modal',
     navigationOptions: {
