@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "742944107462",
+    "firebase_url": "https://surveyapp-c6f8c.firebaseio.com",
+    "project_id": "surveyapp-c6f8c",
+    "storage_bucket": "surveyapp-c6f8c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:742944107462:android:f9ac40f2d109c4f5",
+        "android_client_info": {
+          "package_name": "com.surveyapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "742944107462-n6gbsebjs5vqolphbbi41jiqghm8tsj2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeEHjMjIWzKhCKV6-IbAdPMuHWHmTV8kg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
