@@ -3,10 +3,6 @@ import { View, StatusBar, Text, Dimensions, Animated, BackHandler } from 'react-
 import { SmileyButton } from '../Components';
 import { connect } from 'react-redux';
 import Tts from 'react-native-tts';
-// import {
-//     smileyReaction
-// } from '../actions';
-// import { KeepAwake } from 'expo';
 import  Modal  from '../Components/Modal';
 import { AngryModal } from '../Components/AngryModal';
 import KeepAwake from 'react-native-keep-awake';
@@ -22,17 +18,20 @@ class Main extends Component {
         audioText: ''
     }
     count = 0;
+    timmerRef = {};
     componentDidMount() {
-        // Tts.getInitStatus().then(() => {
-        //     console.log(this.props);
-        //     Tts.speak(`hello world`);
-        // });
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+    }
+
+    setDefault = () =>{
+        this.setState({isVisible: false, angryisVisible: false});
+        clearTimeout(this.timmerRef);
+        
     }
 
     setAngryisVisibleTrue = (image, text, audioText) => {
         this.setState({ angryisVisible: true, image, text, audioText });
-        setTimeout(() => {
+        this.timmerRef = setTimeout(() => {
             this.setState({ isVisible: false, angryisVisible: false });
         }, 15000);
     }
@@ -70,10 +69,10 @@ class Main extends Component {
 
                 {
                     this.state.angryisVisible ?
-                        <AngryModal toggleisVisible={this.toggleisVisible} text={this.state.text} smilyeImage={this.state.image} audioText={this.state.audioText} />
+                        <AngryModal toggleisVisible={this.toggleisVisible} setDefault = {this.setDefault} text={this.state.text} smilyeImage={this.state.image} audioText={this.state.audioText} />
                         :
                         this.state.isVisible ?
-                            <Modal toggleisVisible={this.toggleisVisible} text={this.state.text} smilyeImage={this.state.image} audioText={this.state.audioText} />
+                            <Modal toggleisVisible={this.toggleisVisible} setDefault = {this.setDefault} text={this.state.text} smilyeImage={this.state.image} audioText={this.state.audioText} />
                             :
                             null
                 }

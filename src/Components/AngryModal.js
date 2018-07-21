@@ -20,39 +20,46 @@ class AngryModal extends React.Component {
     render() {
         return (
             <View style={{ height: height * 4, width: width * 2, backgroundColor: "rgba(0,0,0,0.5)", position: "absolute", zIndex: 998 }}>
-                <Animatable.View animation="fadeInDown"                
+                <Animatable.View animation="fadeInDown"
                     style={{
                         minHeight: height * 4, width: width * 2, position: "absolute", zIndex: 999,
                     }}>
                     <TouchableOpacity style={{ height: height, justifyContent: 'center' }} activeOpacity={1} >
-                        <View style={{ flex: 0.8, width: width * 1 / 1.1, borderColor: "#bdc3c7", borderWidth: 1, backgroundColor: "#ecf0f1", alignSelf: "center", flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <View style={{ flex: 0.33, paddingLeft: width * 1 / 80 }}>
-                                <Image resizeMode="contain" style={styles.smilyeStyle}
-                                    source={this.props.smilyeImage}
-                                />
+                        <View style={{ flex: 0.8, width: width * 1 / 1.1, borderColor: "#bdc3c7", borderWidth: 1, backgroundColor: "#ecf0f1", alignSelf: "center" }}>
+                            <View style={{ alignSelf: 'flex-end', padding: width * 1 / 80 }}>
+                                <TouchableOpacity onPress={() => { Tts.stop(); this.props.setDefault() }}>
+                                    <Image style={{ width: 25, height: 25 }} source={require('../../assets/no.png')} />
+                                </TouchableOpacity>
                             </View>
-                            <View style={{ flex: 0.67, textAlign: 'center', paddingRight: width * 1 / 80 }}>
-                                <Text style={{ color: '#2c3e50', textAlign: 'center', alignSelf: 'center', fontSize: fontScale * 20 }}>{this.props.text}</Text>
-                                <View style={{ alignItems: 'center' }}>
-                                    <View style={{ flexDirection: 'row' }}>
-                                        <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => alert("clicked")}>
-                                            <Image style={styles.imagestyle} source={images.waitingTime} />
-                                        </TouchableOpacity>
-                                        <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => alert("clicked")}>
-                                            <Image style={styles.imagestyle} source={images.attitude} />
-                                        </TouchableOpacity>
-                                    </View>
-                                    <View style={{ flexDirection: 'row' }}>
-                                        <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => alert("clicked")}>
-                                            <Image style={styles.imagestyle} source={images.environment} />
-                                        </TouchableOpacity>
-                                        <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => alert("clicked")}>
-                                            <Image style={styles.imagestyle} source={images.environment} />
-                                        </TouchableOpacity>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <View style={{ flex: 0.33, paddingLeft: width * 1 / 80 }}>
+                                    <Image resizeMode="contain" style={styles.smilyeStyle}
+                                        source={this.props.smilyeImage}
+                                    />
+                                </View>
+                                <View style={{ flex: 0.67, textAlign: 'center', paddingRight: width * 1 / 80 }}>
+                                    <Text style={{ color: '#2c3e50', textAlign: 'center', alignSelf: 'center', fontSize: fontScale * 20 }}>{this.props.text}</Text>
+                                    <View style={{ alignItems: 'center' }}>
+                                        <View style={{ flexDirection: 'row' }}>
+                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => alert("clicked")}>
+                                                <Image style={styles.imagestyle} source={images.waitingTime} />
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => alert("clicked")}>
+                                                <Image style={styles.imagestyle} source={images.attitude} />
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={{ flexDirection: 'row' }}>
+                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => alert("clicked")}>
+                                                <Image style={styles.imagestyle} source={images.environment} />
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => alert("clicked")}>
+                                                <Image style={styles.imagestyle} source={images.environment} />
+                                            </TouchableOpacity>
+                                        </View>
                                     </View>
                                 </View>
                             </View>
-                        </View>
+                        </View  >
                     </TouchableOpacity>
                 </Animatable.View>
             </View>
