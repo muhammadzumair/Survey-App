@@ -1,21 +1,62 @@
 import React, { Component } from 'react';
-import { View, StatusBar, Text, Dimensions } from 'react-native';
+import { View, StatusBar, Text, Dimensions, Animated, BackHandler } from 'react-native';
 import { SmileyButton } from '../Components';
 import { connect } from 'react-redux';
+import Tts from 'react-native-tts';
 // import {
 //     smileyReaction
 // } from '../actions';
 // import { KeepAwake } from 'expo';
+import { Modal } from '../Components/modal';
+import { AngryModal } from '../Components/angryModal';
+import KeepAwake from 'react-native-keep-awake';
 const { width, height, fontScale, scale } = Dimensions.get('window');
 
+
 class Main extends Component {
-    componentDidMount() {
-        console.log("props: ", this.props)
+    state = {
+        isVisible: false,
+        angryisVisible: false,
+        image: '',
+        text: '',
+        audioText: ''
     }
+    count = 0;
+    componentDidMount() {
+        // Tts.getInitStatus().then(() => {
+        //     console.log(this.props);
+        //     Tts.speak(`hello world`);
+        // });
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+    }
+
+    setAngryisVisibleTrue = (image, text, audioText) => {
+        this.setState({ angryisVisible: true, image, text, audioText });
+        setTimeout(() => {
+            this.setState({ isVisible: false, angryisVisible: false });
+        }, 15000);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+    }
+
+    handleBackPress = () => {
+        return true;
+    }
+    setisVisibleTrue = (image, text, audioText) => {
+        this.setState({ isVisible: true, image, text, audioText });
+        setTimeout(() => {
+            this.setState({ isVisible: false, angryisVisible: false });
+        }, 15000);
+    }
+    toggleisVisible = () => {
+        this.setState({ isVisible: false, angryisVisible: false });
+    }
+
     render() {
         const { containerStyle, smilyeContainerStyle } = styles;
         const smilyeImages = {
-            // veryHappy: require('../assets/veryHappy.gif'),
             happy: require('../../assets/happy.png'),
             sad: require('../../assets/__sad.png'),
             moderate: require('../../assets/moderate.png'),
@@ -23,67 +64,47 @@ class Main extends Component {
         return (
             <View style={containerStyle}>
                 <StatusBar hidden />
-                {/* <KeepAwake /> */}
+                <KeepAwake />
+
+                {
+                    this.state.angryisVisible ?
+                        <AngryModal toggleisVisible={this.toggleisVisible} text={this.state.text} smilyeImage={this.state.image} audioText={this.state.audioText} />
+                        :
+                        this.state.isVisible ?
+                            <Modal toggleisVisible={this.toggleisVisible} text={this.state.text} smilyeImage={this.state.image} audioText={this.state.audioText} />
+                            :
+                            null
+                }
                 <View style={{ flex: 0.2, paddingTop: height * 1 / 30 }}>
                     <Text style={{ fontSize: fontScale * 30, color: '#000066', alignSelf: 'center' }}>Pleasure Or Displeasure</Text>
                 </View>
                 <View style={smilyeContainerStyle}>
-                    {/* <SmileyButton
-                        onPress={() =>
-                            alert('button pressed')
-                            //     this.props.smileyReaction({
-                            //     showReason: false,
-                            //     nav: this.props.navigation,
-                            //     smiley: 'happy',
-                            //     image: smilyeImages.veryHappy,
-                            //     text: 'Thankyou for your response, we always wants our customer to be happy and more satisfied',
-                            //     audioText: 'Thankyou for your response, we always wants our customers to be happy and more satisfied'
-                            // })
-                        }
-                        smilyeImage={smilyeImages.veryHappy}
-                        text='Happy'
-                    /> */}
                     <SmileyButton
-                        // onPress={() =>
-                            //     this.props.smileyReaction({
-                            //     showReason: false,
-                            //     nav: this.props.navigation,
-                            //     smiley: 'satisfied',
-                            //     image: smilyeImages.happy,
-                            //     text: 'Thankyou for your response, next time you will be more satisfied then now.',
-                            //     audioText: 'Thankyou for your response, next time you will be more satisfied then now.'
-                            // })
-                        // }
+                        onPress={() => this.setisVisibleTrue(
+                            smilyeImages.happy,
+                            'Thankyou for your response, we always wants our customers to be happy and more satisfied',
+                            'Thankyou for your response, we always wants our customers to be happy and more satisfied'
+                        )}
                         smilyeImage={smilyeImages.happy}
                         text='Satisfied'
                     />
 
                     <SmileyButton
-                        // onPress={() =>
-                            //     this.props.smileyReaction({
-                            //     showReason: true,
-                            //     nav: this.props.navigation,
-                            //     smiley: 'moderate',
-                            //     image: smilyeImages.moderate,
-                            //     text: '',
-                            //     audioText: 'OOps We are really sorry for our bad service, can you please send us the reason for your dissatisfaction?'
-                            // })
-                        // }
+                        onPress={() => this.setisVisibleTrue(
+                            smilyeImages.moderate,
+                            'Thankyou for your response, next time you will be more satisfied then now.',
+                            'Thankyou for your response, next time you will be more satisfied then now.'
+                        )}
                         smilyeImage={smilyeImages.moderate}
                         text='Moderate'
                     />
 
                     <SmileyButton
-                        // onPress={() =>
-                            //     this.props.smileyReaction({
-                            //     showReason: true,
-                            //     nav: this.props.navigation,
-                            //     smiley: 'dissatisfied',
-                            //     image: smilyeImages.sad,
-                            //     text: '',
-                            //     audioText: 'Can You Please submit the reason for your dissatisfaction?'
-                            // })
-                        // }
+                        onPress={() => this.setAngryisVisibleTrue(
+                            smilyeImages.sad,
+                            'Can You Please submit the reason for your dissatisfaction?',
+                            'Can You Please submit the reason for your dissatisfaction?'
+                        )}
                         smilyeImage={smilyeImages.sad}
                         text='Sad'
                     />
@@ -91,7 +112,7 @@ class Main extends Component {
                 <View style={{ flex: 0.2 }}>
                     <Text style={{ fontSize: fontScale * 20, color: '#0066ff', alignSelf: 'center', paddingTop: height * 1 / 20 }}>Please Rate Our Service!!!</Text>
                 </View>
-            </View>
+            </View >
         )
 
     }
@@ -101,7 +122,6 @@ const styles = {
     containerStyle: {
         flex: 1,
         alignItems: 'center',
-        // justifyContent: 'center',
         flexWrap: 'wrap',
         backgroundColor: '#e6ffff'
     },

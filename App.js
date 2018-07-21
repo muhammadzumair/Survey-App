@@ -25,8 +25,8 @@ export default class App extends Component {
 
 const Navigation = StackNavigator(
   {
-    main: Main,
     firstScreen: FirstScreen,
+    main: Main,
   },
   {
     initialRouteName: "main",
