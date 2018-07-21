@@ -6,7 +6,6 @@ import Tts from 'react-native-tts';
 
 const images = {
     attitude: require('../../assets/attitude.png'),
-    comment: require('../../assets/comment.png'),
     environment: require('../../assets/environment.png'),
     waitingTime: require('../../assets/waiting-time.png'),
 }
