@@ -7,8 +7,8 @@ import Tts from 'react-native-tts';
 //     smileyReaction
 // } from '../actions';
 // import { KeepAwake } from 'expo';
-import { Modal } from '../Components/modal';
-import { AngryModal } from '../Components/angryModal';
+import { Modal } from '../Components/Modal';
+import { AngryModal } from '../Components/AngryModal';
 import KeepAwake from 'react-native-keep-awake';
 const { width, height, fontScale, scale } = Dimensions.get('window');
 
