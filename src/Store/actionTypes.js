@@ -1,3 +1,14 @@
 export default actionTypes = {
-    
+
+    GET_LOCATIONS: 'GET_LOCATIONS',
+    GET_LOCATIONS_SUCCESS:'GET_LOCATIONS_SUCCESS',
+    GET_LOCATIONS_FAIL: 'GET_LOCATIONS_FAIL'
+
+
+
+
+
+
+
+
 }

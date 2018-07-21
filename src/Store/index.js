@@ -17,6 +17,7 @@ const rootReducer = combineReducers({
 });
 
 export const rootEpic = combineEpics(
+  DBEpic.getLocations
   // more epics functions go here
 );
 

@@ -11,13 +11,19 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import FirstScreen from './src/Screens/FirstScreen';
 import Main from './src/Screens/Main';
+import { Provider } from "react-redux";
+import {store} from './src/Store/index';
 
 
 
 export default class App extends Component {
   render() {
     return (
-      <Navigation />
+      <Provider store={store} >
+        <View style={{ flex: 1 }} >
+          <Navigation />
+        </View>
+      </Provider>
     );
   }
 
@@ -29,7 +35,7 @@ const Navigation = StackNavigator(
     main: Main,
   },
   {
-    initialRouteName: "main",
+    initialRouteName: "firstScreen",
     headerMode: 'none',
     mode: 'modal',
     navigationOptions: {

@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StatusBar, View, Dimensions } from 'react-native';
+import Fire from '../Store/Firebase/firebaseDB';
 
 import { Container, Header, Title, Content, Button, Icon, Text, Right, Body, Left, Picker, Form, Item, Input, Label } from "native-base";
+import DBActions from '../Store/Actions/DBActions/DBActions';
 // const Item = Picker.Item;
 const { height, width, fontScale, scale } = Dimensions.get("window");
-export default class FirstScreen extends Component {
+class FirstScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { selected: undefined }
+    }
+    componentDidMount() {
+        this.props.getLocations();
     }
     handler = (value) => {
         this.setState({ selected: value })
@@ -16,7 +21,7 @@ export default class FirstScreen extends Component {
     render() {
         return (
 
-            <View style={{ flex: 1, alignItems: "center", justifyContent: "space-between",  }} >
+            <View style={{ flex: 1, alignItems: "center", justifyContent: "space-between", }} >
                 <StatusBar hidden={true} />
                 <View style={{ flex: 0.2, }} >
                     <Text style={{ fontSize: fontScale * 30, fontWeight: 'bold' }}>Please Select Your Branch Location</Text>
@@ -36,7 +41,7 @@ export default class FirstScreen extends Component {
                             placeholder="Select your SIM"
                             placeholderStyle={{ color: "#bfc6ea" }}
                             placeholderIconColor="#007aff"
-                            
+
                             selectedValue={this.state.selected}
                             onValueChange={value => { this.handler(value) }}
                         >
@@ -49,13 +54,13 @@ export default class FirstScreen extends Component {
                     </Item>
 
                 </View>
-                <View style={{ flex: 0.4, width: width * 1 / 2,  justifyContent: "center" }} >
+                <View style={{ flex: 0.4, width: width * 1 / 2, justifyContent: "center" }} >
                     <Item  >
 
                         <Input placeholder="enter key" />
                     </Item>
                 </View>
-                <View style={{ flex: 0.2,  width: width * 1 / 2 }} >
+                <View style={{ flex: 0.2, width: width * 1 / 2 }} >
                     <Button style={{ alignSelf: 'center', width: width * 1 / 2 }} full onPress={() => { }}>
                         <Text>Next</Text>
                     </Button>
@@ -67,15 +72,15 @@ export default class FirstScreen extends Component {
 
 let mapStateToProps = (state) => {
     return {
-
+        locations:state.dbReducer.locations
     }
 }
 let mapDispatchToProps = (dispatch) => {
     return {
-
+        getLocations:()=>dispatch(DBActions.getLocationFromFirebase())
     }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(FirstScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(FirstScreen)
 
 

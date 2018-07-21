@@ -14,13 +14,18 @@ const { width, height, fontScale, scale } = Dimensions.get('window');
 
 
 class Main extends Component {
-    state = {
-        isVisible: false,
-        angryisVisible: false,
-        image: '',
-        text: '',
-        audioText: ''
+
+    constructor(props){
+        super(props);
+        this.state = {
+            isVisible: false,
+            angryisVisible: false,
+            image: '',
+            text: '',
+            audioText: ''
+        }
     }
+
     count = 0;
     componentDidMount() {
         // Tts.getInitStatus().then(() => {
@@ -143,15 +148,16 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
-    const { image, text, iconButton, loading } = state.smiley;
-    return { image, text, iconButton, loading };
+   return{
+
+   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    // return{
-    //     smileyReaction : () => dispatch(),
-    // }
+    return{
+        
+    }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Main);
-export default Main;
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
+// export default Main;
