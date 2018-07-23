@@ -12,4 +12,16 @@ export default class DBActions{
             payload:message
         }
     }
+    static userResPush(obj){
+        return{
+            type: actionTypes.USER_RESPONSE_PUSH,
+            payload: obj
+        }
+    }
+    static userResError(errText){
+        return{
+            type: actionTypes.USER_RESPONSE_PUSH_FAIL,
+            payload: errText
+        }
+    }
 }

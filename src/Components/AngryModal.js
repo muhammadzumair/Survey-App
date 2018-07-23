@@ -2,15 +2,36 @@ import React from 'react';
 import { TouchableOpacity, Image, View, Text, Dimensions } from 'react-native';
 const { width, height, fontScale, scale } = Dimensions.get('window');
 import * as Animatable from 'react-native-animatable';
+import { connect } from 'react-redux';
 import Tts from 'react-native-tts';
+import Firebase from 'react-native-firebase';
+import DBActions from '../Store/Actions/DBActions/DBActions';
+
 
 const images = {
     attitude: require('../../assets/attitude.png'),
     environment: require('../../assets/environment.png'),
     waitingTime: require('../../assets/waiting-time.png'),
+    badService: require('../../assets/badService.png')
 }
 
 class AngryModal extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        }
+    }
+
+    pushResponse = (reason) => {
+        let obj = {
+            userResponse: this.props.userResponse,
+            reason,
+            timeStamp: Firebase.firestore.FieldValue.serverTimestamp()
+
+        }
+        this.props.userResPush(obj);
+    }
+
     componentDidMount() {
         Tts.getInitStatus().then(() => {
             console.log(this.props);
@@ -41,19 +62,23 @@ class AngryModal extends React.Component {
                                     <Text style={{ color: '#2c3e50', textAlign: 'center', alignSelf: 'center', fontSize: fontScale * 20 }}>{this.props.text}</Text>
                                     <View style={{ alignItems: 'center' }}>
                                         <View style={{ flexDirection: 'row' }}>
-                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => alert("clicked")}>
+                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Waiting Time')}>
                                                 <Image style={styles.imagestyle} source={images.waitingTime} />
+                                                <Text>waiting Time</Text>
                                             </TouchableOpacity>
-                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => alert("clicked")}>
+                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Attitude')}>
                                                 <Image style={styles.imagestyle} source={images.attitude} />
+                                                <Text>Attitude</Text>
                                             </TouchableOpacity>
                                         </View>
                                         <View style={{ flexDirection: 'row' }}>
-                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => alert("clicked")}>
+                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Enviroment')}>
                                                 <Image style={styles.imagestyle} source={images.environment} />
+                                                <Text>Enviroment</Text>
                                             </TouchableOpacity>
-                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => alert("clicked")}>
-                                                <Image style={styles.imagestyle} source={images.environment} />
+                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Bad Service')}>
+                                                <Image style={styles.imagestyle} source={images.badService} />
+                                                <Text>Bad Service</Text>
                                             </TouchableOpacity>
                                         </View>
                                     </View>
@@ -87,5 +112,16 @@ const styles = {
         height: 50
     }
 }
+let mapStateToProps = (state) => {
+    return {
 
-export { AngryModal };
+    }
+}
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+        userResPush: (obj) => dispatch(DBActions.userResPush(obj))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AngryModal);

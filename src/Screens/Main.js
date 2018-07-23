@@ -3,22 +3,23 @@ import { View, StatusBar, Text, Dimensions, Animated, BackHandler } from 'react-
 import { SmileyButton } from '../Components';
 import { connect } from 'react-redux';
 import Tts from 'react-native-tts';
-import  Modal  from '../Components/Modal';
-import { AngryModal } from '../Components/AngryModal';
+import Modal from '../Components/Modal';
+import AngryModal from '../Components/AngryModal';
 import KeepAwake from 'react-native-keep-awake';
 const { width, height, fontScale, scale } = Dimensions.get('window');
 
 
 class Main extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             isVisible: false,
             angryisVisible: false,
             image: '',
             text: '',
-            audioText: ''
+            audioText: '',
+            userResponse: ''
         }
     }
 
@@ -28,14 +29,14 @@ class Main extends Component {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     }
 
-    setDefault = () =>{
-        this.setState({isVisible: false, angryisVisible: false});
+    setDefault = () => {
+        this.setState({ isVisible: false, angryisVisible: false });
         clearTimeout(this.timmerRef);
-        
+
     }
 
-    setAngryisVisibleTrue = (image, text, audioText) => {
-        this.setState({ angryisVisible: true, image, text, audioText });
+    setAngryisVisibleTrue = (image, text, audioText, userResponse) => {
+        this.setState({ angryisVisible: true, image, text, audioText, userResponse });
         this.timmerRef = setTimeout(() => {
             this.setState({ isVisible: false, angryisVisible: false });
         }, 15000);
@@ -48,8 +49,8 @@ class Main extends Component {
     handleBackPress = () => {
         return true;
     }
-    setisVisibleTrue = (image, text, audioText) => {
-        this.setState({ isVisible: true, image, text, audioText });
+    setisVisibleTrue = (image, text, audioText, userResponse) => {
+        this.setState({ isVisible: true, image, text, audioText, userResponse });
         setTimeout(() => {
             this.setState({ isVisible: false, angryisVisible: false });
         }, 15000);
@@ -71,13 +72,12 @@ class Main extends Component {
                 <KeepAwake />
                 <StatusBar hidden />
                 <KeepAwake />
-
                 {
                     this.state.angryisVisible ?
-                        <AngryModal toggleisVisible={this.toggleisVisible} setDefault = {this.setDefault} text={this.state.text} smilyeImage={this.state.image} audioText={this.state.audioText} />
+                        <AngryModal userResponse={this.state.userResponse} toggleisVisible={this.toggleisVisible} setDefault={this.setDefault} text={this.state.text} smilyeImage={this.state.image} audioText={this.state.audioText} />
                         :
                         this.state.isVisible ?
-                            <Modal toggleisVisible={this.toggleisVisible} setDefault = {this.setDefault} text={this.state.text} smilyeImage={this.state.image} audioText={this.state.audioText} />
+                            <Modal userResponse={this.state.userResponse} toggleisVisible={this.toggleisVisible} setDefault={this.setDefault} text={this.state.text} smilyeImage={this.state.image} audioText={this.state.audioText} />
                             :
                             null
                 }
@@ -89,33 +89,36 @@ class Main extends Component {
                         onPress={() => this.setisVisibleTrue(
                             smilyeImages.happy,
                             'Thankyou for your response, we always wants our customers to be happy and more satisfied',
-                            'Thankyou for your response, we always wants our customers to be happy and more satisfied'
+                            'Thankyou for your response, we always wants our customers to be happy and more satisfied',
+                            'satisfied'
                         )}
                         smilyeImage={smilyeImages.happy}
                         text='Satisfied'
-                        
+
                     />
 
                     <SmileyButton
                         onPress={() => this.setisVisibleTrue(
                             smilyeImages.moderate,
                             'Thankyou for your response, next time you will be more satisfied then now.',
-                            'Thankyou for your response, next time you will be more satisfied then now.'
+                            'Thankyou for your response, next time you will be more satisfied then now.',
+                            'moderat'
                         )}
                         smilyeImage={smilyeImages.moderate}
                         text='Moderate'
-                        
+
                     />
 
                     <SmileyButton
                         onPress={() => this.setAngryisVisibleTrue(
                             smilyeImages.sad,
                             'Can You Please submit the reason for your dissatisfaction?',
-                            'Can You Please submit the reason for your dissatisfaction?'
+                            'Can You Please submit the reason for your dissatisfaction?',
+                            'angry'
                         )}
                         smilyeImage={smilyeImages.sad}
                         text='Sad'
-                        
+
                     />
                 </View>
                 <View style={{ flex: 0.2 }}>
@@ -147,14 +150,14 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
-   return{
+    return {
 
-   }
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return{
-        
+    return {
+
     }
 }
 
