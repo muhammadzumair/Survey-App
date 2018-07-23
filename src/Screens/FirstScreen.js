@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StatusBar, View, Dimensions } from 'react-native';
+import { StatusBar, View, Dimensions ,ToastAndroid} from 'react-native';
 import Fire from '../Store/Firebase/firebaseDB';
 
 import { Container, Header, Title, Content, Button, Icon, Text, Right, Body, Left, Picker, Form, Item, Input, Label } from "native-base";
@@ -10,7 +10,7 @@ const { height, width, fontScale, scale } = Dimensions.get("window");
 class FirstScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = { selected: "none", key: '', inputText: '' }
+        this.state = { selected: "none", key: null, inputText: '' }
     }
     componentDidMount() {
         this.props.getLocations();
@@ -29,12 +29,14 @@ class FirstScreen extends Component {
             this.props.saveLoaction(this.state.selected);
             this.props.navigation.navigate('main');
         }else{
-            alert('Wrong Key');
+            ToastAndroid.show("wrong password",ToastAndroid.SHORT);
         }
     }
 
 
     render() {
+        this.props.isError?ToastAndroid.show(this.props.errorMessage,ToastAndroid.SHORT): null
+        
         return (
 
             <View style={{ flex: 1, alignItems: "center", justifyContent: "space-between", }} >
@@ -89,7 +91,9 @@ class FirstScreen extends Component {
 
 let mapStateToProps = (state) => {
     return {
-        locations: state.dbReducer.locations
+        locations: state.dbReducer.locations,
+        isError:state.dbReducer.isError,
+        errorMessage:state.dbReducer.errorMessage
     }
 }
 let mapDispatchToProps = (dispatch) => {

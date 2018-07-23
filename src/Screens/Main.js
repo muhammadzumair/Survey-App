@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StatusBar, Text, Dimensions, Animated, BackHandler } from 'react-native';
+import { View, StatusBar, Text, Dimensions, Animated, BackHandler , ToastAndroid } from 'react-native';
 import { SmileyButton } from '../Components';
 import { connect } from 'react-redux';
 import Tts from 'react-native-tts';
@@ -60,6 +60,7 @@ class Main extends Component {
     }
 
     render() {
+        this.props.isError?ToastAndroid.show(this.props.errorMessage):null
         const { containerStyle, smilyeContainerStyle } = styles;
         const smilyeImages = {
             happy: require('../../assets/happy.png'),
@@ -151,7 +152,8 @@ const styles = {
 
 const mapStateToProps = (state) => {
     return {
-
+        isError:state.dbReducer.isError,
+        errorMessage:state.dbReducer.errorMessage
     }
 }
 
