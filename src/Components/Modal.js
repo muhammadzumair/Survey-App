@@ -1,13 +1,20 @@
 import React from 'react';
 import { TouchableOpacity, Image, View, Text, Dimensions } from 'react-native';
+import { connect } from 'react-redux';
 const { width, height, fontScale, scale } = Dimensions.get('window');
 import * as Animatable from 'react-native-animatable';
 import Tts from 'react-native-tts';
+import Firebase from 'react-native-firebase';
+import DBActions from '../Store/Actions/DBActions/DBActions';
 
-export default class Modal extends React.Component {
+class Modal extends React.Component {
 
     componentDidMount() {
-
+        let obj = {
+            userResponse: this.props.userResponse,
+            timeStamp: Firebase.firestore.FieldValue.serverTimestamp()
+        }
+        this.props.userResPush(obj);
         Tts.getInitStatus().then(() => {
             console.log(this.props);
             Tts.speak(this.props.audioText);
@@ -16,19 +23,18 @@ export default class Modal extends React.Component {
     render() {
         return (
             <View style={{ height: height * 4, width: width * 2, backgroundColor: "rgba(0,0,0,0.5)", position: "absolute", zIndex: 998 }}>
-
                 <Animatable.View animation="fadeInDown"
                     style={{
                         minHeight: height * 4, width: width * 2, position: "absolute", zIndex: 999,
                     }}>
                     <TouchableOpacity style={{ height: height, justifyContent: 'center' }} activeOpacity={1} >
-                        <View style={{flex: 0.8, width: width * 1 / 1.1, borderColor: "#bdc3c7", borderWidth: 1, backgroundColor: "#ecf0f1", alignSelf: "center"}}>
-                            <View style={{ alignSelf: 'flex-end', padding: width * 1/80}}>
-                                <TouchableOpacity onPress={()=>{Tts.stop();this.props.setDefault()}}>
-                                    <Image style={{width: 25, height: 25}} source = {require('../../assets/no.png')}/>
+                        <View style={{ flex: 0.8, width: width * 1 / 1.1, borderColor: "#bdc3c7", borderWidth: 1, backgroundColor: "#ecf0f1", alignSelf: "center" }}>
+                            <View style={{ alignSelf: 'flex-end', padding: width * 1 / 80 }}>
+                                <TouchableOpacity onPress={() => { Tts.stop(); this.props.setDefault() }}>
+                                    <Image style={{ width: 25, height: 25 }} source={require('../../assets/no.png')} />
                                 </TouchableOpacity>
                             </View>
-                            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <View style={{ flex: 0.33, paddingLeft: width * 1 / 80 }}>
                                     <Image resizeMode="contain" style={styles.smilyeStyle}
                                         source={this.props.smilyeImage}
@@ -66,4 +72,16 @@ const styles = {
     }
 }
 
+let mapStateToProps = (state) => {
+    return {
 
+    }
+}
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+        userResPush: (obj) => dispatch(DBActions.userResPush(obj))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Modal);

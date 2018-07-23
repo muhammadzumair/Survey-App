@@ -35,7 +35,7 @@ const Navigation = StackNavigator(
     main: Main,
   },
   {
-    initialRouteName: "firstScreen",
+    initialRouteName: "main",
     headerMode: 'none',
     mode: 'modal',
     navigationOptions: {

@@ -13,6 +13,19 @@ export default class FirebaseDB {
 
     }
 
+    static pushResponse(obj){
+        console.log('from firebase Db: ', obj);
+        return new Promise((res, rej)=>{
+            Firebase.firestore().collection("Response").add(obj)
+                .then((docRef)=>{
+                    console.log('data pushed', docRef)
+                    res(true);
+                }).catch((err)=>{
+                    console.log('data not pushed')
+                    rej(err);
+                })
+        })
+    }
 }
 function snapshotToArray(snapshot) {
     var returnArr = [];
