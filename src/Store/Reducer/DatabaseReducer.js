@@ -31,7 +31,7 @@ export default function dbReducer(state = INITIAL_STATE, action) {
             return {...state, isProgress:true};
         case actionTypes.GET_TIME_SUCCESS:
             return {...state, isProgress: false, date:action.payload};
-        case actionTypes.GET_LOCATIONS_FAIL:
+        case actionTypes.GET_TIME_FAIL:
             return {...state, isError: true, errorMessage: action.payload, isProgress:false};
 
         case actionTypes.MAKE_ISERROR_FALSE:
