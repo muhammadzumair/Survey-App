@@ -14,6 +14,7 @@
     "react-native-firebase": "^4.3.7",
     "react-native-keep-awake": "^3.0.1",
     "react-native-modal": "^6.4.0",
+    "react-native-splash-screen": "^3.1.0",
     "react-native-tts": "^1.5.1",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^2.8.0",

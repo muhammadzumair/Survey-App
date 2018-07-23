@@ -73,7 +73,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    entryFile: "index.js"
+        entryFile: "index.js"
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -100,7 +100,7 @@ android {
         applicationId "com.surveyapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-    multiDexEnabled true
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         ndk {
@@ -126,7 +126,7 @@ android {
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
-            def versionCodes = ["armeabi-v7a":1, "x86":2]
+            def versionCodes = ["armeabi-v7a": 1, "x86": 2]
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
@@ -137,10 +137,11 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     compile project(':react-native-keep-awake')
     compile project(':react-native-tts')
     implementation project(':react-native-vector-icons')
-    
+
     implementation project(':react-native-firebase')
     implementation project(':react-native-firebase')
     implementation "com.google.android.gms:play-services-base:15.0.1"

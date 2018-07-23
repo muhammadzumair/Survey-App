@@ -10,14 +10,27 @@ const { height, width, fontScale, scale } = Dimensions.get("window");
 class FirstScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = { selected: undefined }
+        this.state = { selected: "none", key: '', inputText: '' }
     }
     componentDidMount() {
         this.props.getLocations();
     }
     handler = (value) => {
-        this.setState({ selected: value })
+        this.props.locations.forEach(item => {
+            if (item.key === value) {
+                this.setState({ selected: value, key: item.pin })
+            }
+        })
+        // this.setState({ selected: value })
     }
+    buttonHandler = () => {
+        console.log(this.state)
+        if (this.state.key == this.state.inputText) {
+            this.props.navigation.navigate('main');
+        }
+    }
+
+
     render() {
         return (
 
@@ -45,11 +58,12 @@ class FirstScreen extends Component {
                             selectedValue={this.state.selected}
                             onValueChange={value => { this.handler(value) }}
                         >
-                            <Picker.Item label="Tariq Road" value="tariq-road" />
-                            <Picker.Item label="Gulshan e Iqbal" value="gulshan-e-iqbal" />
-                            <Picker.Item label="Nazimabad" value="nazimabad" />
-                            <Picker.Item label="Askari" value="askari" />
-                            <Picker.Item label="Clifton" value="clifton" />
+                            <Picker.Item label="none" value="none" />
+                            <Picker.Item label="Tariq Road" value="Tariq Road" />
+                            <Picker.Item label="Gulshan" value="Gulshan" />
+                            <Picker.Item label="Nazimabad" value="Nazimabad" />
+                            <Picker.Item label="Askari" value="Askari" />
+                            <Picker.Item label="Clifton" value="Clifton" />
                         </Picker>
                     </Item>
 
@@ -57,11 +71,11 @@ class FirstScreen extends Component {
                 <View style={{ flex: 0.4, width: width * 1 / 2, justifyContent: "center" }} >
                     <Item  >
 
-                        <Input placeholder="enter key" />
+                        <Input placeholder="enter key" value={this.state.inputText} onChangeText={(text) => { this.setState({ inputText: text }) }} />
                     </Item>
                 </View>
                 <View style={{ flex: 0.2, width: width * 1 / 2 }} >
-                    <Button style={{ alignSelf: 'center', width: width * 1 / 2 }} full onPress={() => { }}>
+                    <Button style={{ alignSelf: 'center', width: width * 1 / 2 }} full onPress={() => {this.buttonHandler() }}>
                         <Text>Next</Text>
                     </Button>
                 </View>
@@ -72,12 +86,12 @@ class FirstScreen extends Component {
 
 let mapStateToProps = (state) => {
     return {
-        locations:state.dbReducer.locations
+        locations: state.dbReducer.locations
     }
 }
 let mapDispatchToProps = (dispatch) => {
     return {
-        getLocations:()=>dispatch(DBActions.getLocationFromFirebase())
+        getLocations: () => dispatch(DBActions.getLocationFromFirebase())
     }
 }
 
