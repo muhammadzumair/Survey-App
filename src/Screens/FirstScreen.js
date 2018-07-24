@@ -5,7 +5,7 @@ import Fire from '../Store/Firebase/firebaseDB';
 
 import { Container, Header, Title, Content, Button, Icon, Text, Right, Body, Left, Picker, Form, Item, Input, Label } from "native-base";
 import DBActions from '../Store/Actions/DBActions/DBActions';
-// const Item = Picker.Item;
+// const Item = Picker.Item;-
 const { height, width, fontScale, scale } = Dimensions.get("window");
 class FirstScreen extends Component {
     constructor(props) {
@@ -26,18 +26,21 @@ class FirstScreen extends Component {
     }
     buttonHandler = () => {
         console.log(this.state)
-        if (this.state.key == this.state.inputText) {
+        if (this.state.key == this.state.inputText && this.props.errorMessage=="") {
             this.props.saveLoaction(this.state.selected);
             this.props.navigation.navigate('main');
-        }else{
+        }else if (this.props.errorMessage==="ajax error 0"){
+            ToastAndroid.show("internet error",ToastAndroid.SHORT)
+        }
+        else{
             ToastAndroid.show("wrong password",ToastAndroid.SHORT);
         }
     }
 
 
     render() {
-        this.props.isError?ToastAndroid.show(this.props.errorMessage,ToastAndroid.SHORT): null
-        
+        this.props.isError?ToastAndroid.show("internet error",ToastAndroid.SHORT): null
+        this.props.makeErrorFalse();
         return (
 
             <View style={{ flex: 1, alignItems: "center", justifyContent: "space-between", }} >
@@ -101,7 +104,8 @@ let mapDispatchToProps = (dispatch) => {
     return {
         getLocations: () => dispatch(DBActions.getLocationFromFirebase()),
         saveLoaction: (location) => dispatch(DBActions.saveLocation(location)),
-        getDate: () => dispatch(DBActions.getTime())
+        getDate: () => dispatch(DBActions.getTime()),
+        makeErrorFalse:()=>dispatch(DBActions.makeisErrorFalse())
     }
 }
 
