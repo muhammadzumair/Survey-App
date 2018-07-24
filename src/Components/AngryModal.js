@@ -18,7 +18,7 @@ const images = {
 class AngryModal extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = { showThanks:false
         }
     }
 
@@ -53,6 +53,10 @@ class AngryModal extends React.Component {
                                     <Image style={{ width: 25, height: 25 }} source={require('../../assets/no.png')} />
                                 </TouchableOpacity>
                             </View>
+
+                           
+                            { this.state.showThanks?<View style={{flex:1,justifyContent:"center",alignItems:"center"}} ><Text style={{fontSize:fontScale*20,fontWeight:"bold"}} >Thankyou</Text></View>:
+                            
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <View style={{ flex: 0.33, paddingLeft: width * 1 / 80 }}>
                                     <Image resizeMode="contain" style={styles.smilyeStyle}
@@ -63,28 +67,28 @@ class AngryModal extends React.Component {
                                     <Text style={{ color: '#2c3e50', textAlign: 'center', alignSelf: 'center', fontSize: fontScale * 20 }}>{this.props.text}</Text>
                                     <View style={{ alignItems: 'center' }}>
                                         <View style={{ flexDirection: 'row' }}>
-                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Waiting Time')}>
+                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => {this.pushResponse('Waiting Time');this.setState({showThanks:true})}}>
                                                 <Image style={styles.imagestyle} source={images.waitingTime} />
                                                 <Text>waiting Time</Text>
                                             </TouchableOpacity>
-                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Attitude')}>
+                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => {this.pushResponse('Attitude');this.setState({showThanks:true})}}>
                                                 <Image style={styles.imagestyle} source={images.attitude} />
                                                 <Text>Attitude</Text>
                                             </TouchableOpacity>
                                         </View>
                                         <View style={{ flexDirection: 'row' }}>
-                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Enviroment')}>
+                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => {this.pushResponse('Enviroment');this.setState({showThanks:true})}}>
                                                 <Image style={styles.imagestyle} source={images.environment} />
                                                 <Text>Enviroment</Text>
                                             </TouchableOpacity>
-                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Bad Service')}>
+                                            <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => {this.pushResponse('Bad Service');this.setState({showThanks:true})}}>
                                                 <Image style={styles.imagestyle} source={images.badService} />
                                                 <Text>Bad Service</Text>
                                             </TouchableOpacity>
                                         </View>
                                     </View>
                                 </View>
-                            </View>
+                            </View>}
                         </View  >
                     </TouchableOpacity>
                 </Animatable.View>

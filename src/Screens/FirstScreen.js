@@ -69,11 +69,16 @@ class FirstScreen extends Component {
                             onValueChange={value => { this.handler(value) }}
                         >
                             <Picker.Item label="none" value="none" />
-                            <Picker.Item label="Tariq Road" value="Tariq Road" />
+                            {/* <Picker.Item label="Tariq Road" value="Tariq Road" />
                             <Picker.Item label="Gulshan" value="Gulshan" />
                             <Picker.Item label="Nazimabad" value="Nazimabad" />
                             <Picker.Item label="Askari" value="Askari" />
-                            <Picker.Item label="Clifton" value="Clifton" />
+                            <Picker.Item label="Clifton" value="Clifton" /> */}
+                            {
+                                this.props.locations.map((value,i)=>{
+                                    return <Picker.Item label={value.key} value={value.key} key={i} />
+                                })
+                            }
                         </Picker>
                     </Item>
 
