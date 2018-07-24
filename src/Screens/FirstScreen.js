@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StatusBar, View, Dimensions ,ToastAndroid} from 'react-native';
+import { StatusBar, View, Dimensions, ToastAndroid } from 'react-native';
 import Fire from '../Store/Firebase/firebaseDB';
 
 import { Container, Header, Title, Content, Button, Icon, Text, Right, Body, Left, Picker, Form, Item, Input, Label } from "native-base";
@@ -39,7 +39,7 @@ class FirstScreen extends Component {
 
 
     render() {
-        this.props.isError?ToastAndroid.show("internet error",ToastAndroid.SHORT): null
+        this.props.isError?ToastAndroid.show("Not connected to internet",ToastAndroid.SHORT): null
         this.props.makeErrorFalse();
         return (
 
@@ -84,7 +84,7 @@ class FirstScreen extends Component {
                     </Item>
                 </View>
                 <View style={{ flex: 0.2, width: width * 1 / 2 }} >
-                    <Button style={{ alignSelf: 'center', width: width * 1 / 2 }} full onPress={() => {this.buttonHandler() }}>
+                    <Button style={{ alignSelf: 'center', width: width * 1 / 2 }} full onPress={() => { this.buttonHandler() }}>
                         <Text>Next</Text>
                     </Button>
                 </View>
@@ -96,8 +96,8 @@ class FirstScreen extends Component {
 let mapStateToProps = (state) => {
     return {
         locations: state.dbReducer.locations,
-        isError:state.dbReducer.isError,
-        errorMessage:state.dbReducer.errorMessage
+        isError: state.dbReducer.isError,
+        errorMessage: state.dbReducer.errorMessage
     }
 }
 let mapDispatchToProps = (dispatch) => {

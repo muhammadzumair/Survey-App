@@ -41,22 +41,20 @@ export default class DBEpic {
                 return Observable.ajax(`http://api.timezonedb.com/v2/get-time-zone?key=FJFC17ZZIX4V&format=json&by=zone&zone=Asia/Karachi`)
                     .pluck('response')
                     .map(data => {
-                        // if (data === "ajax error 0") {
-                        //     return Observable.of(DBActions.getTimeFail(err.message));
-                        // }
-                        // else {
+                        
 
                             let date = dateConvertor(data.formatted)
                             return {
                                 type: actionTypes.GET_TIME_SUCCESS,
                                 payload: date
                             }
-                        // }
+                        
                     })
                     .catch(err => {
                         
                         return Observable.of(DBActions.getTimeFail(err.message));
                     })
+                
             })
     }
 }
