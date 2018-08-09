@@ -8,6 +8,7 @@ import {
     Platform,
     PermissionsAndroid,
     Dimensions,
+    ToastAndroid, TextComponent
 } from 'react-native';
 import Firebase from 'react-native-firebase';
 // import Sound from 'react-native-sound';
@@ -19,9 +20,10 @@ import Tts from 'react-native-tts';
 import Modal from '../Components/Modal';
 import AngryModal from '../Components/AngryModal';
 import KeepAwake from 'react-native-keep-awake';
+import DBActions from '../Store/Actions/DBActions/DBActions';
 const { width, height, fontScale, scale } = Dimensions.get('window');
 
-export default class SurveyFrom extends Component {
+class SurveyForm extends Component {
 
     constructor(props) {
         super(props);
@@ -33,7 +35,8 @@ export default class SurveyFrom extends Component {
             finished: false,
             audioPath: AudioUtils.DocumentDirectoryPath + '/test.aac',
             hasPermission: undefined,
-            filePath: ''
+            filePath: '', userName: "", email: "", phoneNum: "", message: "",
+            stopBtn: true,
         };
     }
     prepareRecordingPath(audioPath) {
@@ -97,7 +100,7 @@ export default class SurveyFrom extends Component {
                             </Button>
                         </View> :
                         <View style={{ justifyContent: "center", alignItems: 'center' }}>
-                            <Button onPress={onPress} style={{
+                            <Button disabled={this.state.stopBtn} onPress={onPress} style={{
                                 backgroundColor: "#c0392b", alignSelf: 'center', alignItems: "center", justifyContent: "center", height: width * 1 / 12, width: width * 1 / 12, borderRadius: width * 1 / 8
                             }} >
                                 <Icon name={title} />
@@ -141,7 +144,7 @@ export default class SurveyFrom extends Component {
             this.prepareRecordingPath(this.state.audioPath);
         }
 
-        this.setState({ recording: true, paused: false });
+        this.setState({ recording: true, paused: false, stopBtn: false });
         let filePath;
         try {
             filePath = await AudioRecorder.startRecording();
@@ -161,60 +164,97 @@ export default class SurveyFrom extends Component {
         console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize || 0} bytes`);
     }
     uploadAudio = () => {
-        let file = this.state.filePath;
+        if (this.state.message.length > 0 && this.state.message.length < 10) {
+            ToastAndroid.show("feeback message is too short", ToastAndroid.SHORT)
+            return;
+        }
+        if (this.state.filePath.length > 0) {
+            let file = this.state.filePath;
+            let metadata = {
+                contentType: 'audio/mpeg_4'
+            };
+            console.log('before file uploading');
+            var uploadTask = Firebase.storage().ref('/audio').put(file, metadata);
+            console.log('after file uploading')
+            uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                (snapshot) => {
+                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state) {
+                        case Firebase.storage.TaskState.PAUSED: // or 'paused'
+                            console.log('Upload is paused');
+                            break;
+                        case Firebase.storage.TaskState.RUNNING: // or 'running'
+                            console.log('Upload is running');
+                            break;
+                    }
+                }, (error) => {
+                    console.log('error message: ', error.code);
+                    switch (error.code) {
+                        case 'storage/unauthorized':
+                            break;
 
-        let metadata = {
-            contentType: 'audio/mpeg_4'
-        };
+                        case 'storage/canceled':
+                            break;
 
-        console.log('before file uploading')
-        var uploadTask = Firebase.storage().ref('/audio').put(file, metadata);
-        console.log('after file uploading')
-        uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-            function (snapshot) {
-                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
-                switch (snapshot.state) {
-                    case Firebase.storage.TaskState.PAUSED: // or 'paused'
-                        console.log('Upload is paused');
-                        break;
-                    case Firebase.storage.TaskState.RUNNING: // or 'running'
-                        console.log('Upload is running');
-                        break;
-                }
-            }, function (error) {
-                console.log('error message: ', error.code);
-                switch (error.code) {
-                    case 'storage/unauthorized':
-                        break;
-
-                    case 'storage/canceled':
-                        break;
-
-                    case 'storage/unknown':
-                        break;
-                }
-            }, function (snapshot) {
-                console.log(snapshot);
-                console.log(snapshot.downloadURL)
-                return snapshot.downloadURL;
-            });
+                        case 'storage/unknown':
+                            break;
+                    }
+                }, (snapshot)=> {
+                    console.log(snapshot);
+                    console.log(snapshot.downloadURL)
+                    if (this.state.message.length > 0) {
+                        let obj = {
+                            userName: this.state.userName,
+                            phoneNum: this.state.phoneNum,
+                            email: this.state.email,
+                            message: this.state.message,
+                            audioURL: snapshot.downloadURL
+                        }
+                        this.props.userFeedBack(this.props.currLocation, this.props.date, this.props.userResponseKey, obj)
+                    } else {
+                        let obj = {
+                            userName: this.state.userName,
+                            phoneNum: this.state.phoneNum,
+                            email: this.state.email,
+                            audioURL: snapshot.downloadURL
+                        }
+                        this.props.userFeedBack(this.props.currLocation, this.props.date, this.props.userResponseKey, obj)
+                    }
+                    this.props.navigation.goBack()
+                });
+        }
+        else {
+            let obj = {
+                userName: this.state.userName,
+                phoneNum: this.state.phoneNum,
+                email: this.state.email,
+                message: this.state.message
+            }
+            if (this.state.message.length >= 10) {
+                this.props.userFeedBack(this.props.currLocation, this.props.date, this.props.userResponseKey, obj)
+                this.props.navigation.goBack()
+            } else {
+                ToastAndroid.show("feeback is required", ToastAndroid.SHORT)
+            }
+        }
     }
     render() {
         return (
+
             <View style={{ flex: 1, padding: width * 1 / 40, justifyContent: "center", flexDirection: "row" }}>
                 <View style={{ flex: 0.65 }} >
                     <View style={{ flex: 0.2 }} >
-                        <Input style={{ borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Username" />
+                        <Input style={{ borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Username" onChangeText={(text) => this.setState({ userName: text })} />
                     </View>
                     <View style={{ flex: 0.2 }} >
-                        <Input style={{ borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="email" />
+                        <Input style={{ borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="email" onChangeText={(text) => this.setState({ email: text })} />
                     </View>
                     <View style={{ flex: 0.2, }} >
-                        <Input style={{ borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="phone number" />
+                        <Input style={{ borderBottomColor: "#dedede", borderBottomWidth: 1 }} keyboardType={"number-pad"} placeholder="phone number" onChangeText={(text) => this.setState({ phoneNum: text })} />
                     </View>
                     <View style={{ flex: 0.3, }} >
-                        <Textarea rowSpan={4} bordered placeholder="message" multiline={true} numberOfLines={10} />
+                        <Textarea rowSpan={4} bordered placeholder="Feedback..." multiline={true} numberOfLines={10} onChangeText={(text) => this.setState({ message: text })} />
                     </View>
                     <View style={{ flex: 0.1 }} >
                     </View>
@@ -247,6 +287,7 @@ export default class SurveyFrom extends Component {
                     </View>
                 </View>
             </View>
+
         )
     }
 }
@@ -281,3 +322,20 @@ var styles = StyleSheet.create({
     }
 
 });
+let mapStateToProps = (state) => {
+    return {
+
+        isError: state.dbReducer.isError,
+        errorMessage: state.dbReducer.errorMessage,
+        currLocation: state.dbReducer.currLocation,
+        date: state.dbReducer.date,
+        userResponseKey: state.dbReducer.userResponseKey
+    }
+}
+let mapDispatchToProps = (dispatch) => {
+    return {
+        userFeedBack: (branch, date, key, obj) => dispatch(DBActions.userFeedBack(branch, date, key, obj))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SurveyForm)

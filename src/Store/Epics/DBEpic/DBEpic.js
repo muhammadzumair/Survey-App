@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import FirebaseDB from '../../Firebase/firebaseDB';
 import DBActions from '../../Actions/DBActions/DBActions';
 import Time from '../../Serivces/httpReq';
+import { retry } from 'rxjs/operator/retry';
 
 export default class DBEpic {
     static getLocations(action$) {
@@ -41,21 +42,32 @@ export default class DBEpic {
                 return Observable.ajax(`http://api.timezonedb.com/v2/get-time-zone?key=FJFC17ZZIX4V&format=json&by=zone&zone=Asia/Karachi`)
                     .pluck('response')
                     .map(data => {
-                        
 
-                            let date = dateConvertor(data.formatted)
-                            return {
-                                type: actionTypes.GET_TIME_SUCCESS,
-                                payload: date
-                            }
-                        
+
+                        let date = dateConvertor(data.formatted)
+                        return {
+                            type: actionTypes.GET_TIME_SUCCESS,
+                            payload: date
+                        }
+
                     })
                     .catch(err => {
-                        
+
                         return Observable.of(DBActions.getTimeFail(err.message));
                     })
-                
+
             })
+    }
+    static userFeedBack(action$) {
+        return action$.ofType(actionTypes.USER_FEEDBACK_PROGRESS).switchMap(({ payload }) => {
+            return Observable.fromPromise(FirebaseDB.userFeeeBack(payload.branch, payload.date, payload.key, payload.obj)).map(data => {
+                return {
+                    type: actionTypes.USER_FEEDBACK_SUCCESS
+                }
+            }).catch(err => {
+                return Observable.of({ type: actionTypes.USER_FEEDBACK_FAIL, payload: err.message })
+            })
+        })
     }
 }
 

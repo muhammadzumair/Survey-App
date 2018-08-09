@@ -33,14 +33,12 @@ export default class App extends Component {
 
 const Navigation = StackNavigator(
   {
-    serveyForm: ServeyForm,
-    audioExample: AudioExample,
     firstScreen: FirstScreen,
+    surveyForm:SurveyForm,
     main: Main,
-    surveyForm:SurveyForm
   },
   {
-    // initialRouteName: "audioExample",
+    initialRouteName: "firstScreen",
     headerMode: 'none',
     mode: 'modal',
     navigationOptions: {
