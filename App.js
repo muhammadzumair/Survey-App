@@ -11,8 +11,9 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import FirstScreen from './src/Screens/FirstScreen';
 import Main from './src/Screens/Main';
+import SurveyForm from './src/Screens/SurveyForm';
 import { Provider } from "react-redux";
-import {store} from './src/Store/index';
+import { store } from './src/Store/index';
 
 
 
@@ -33,6 +34,7 @@ const Navigation = StackNavigator(
   {
     firstScreen: FirstScreen,
     main: Main,
+    surveyForm:SurveyForm
   },
   {
     initialRouteName: "firstScreen",

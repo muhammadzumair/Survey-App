@@ -17,8 +17,8 @@ export default class FirebaseDB {
         return new Promise((res, rej) => {
             Firebase.firestore().collection("Response").doc(obj.obj.location).collection(obj.date).add(obj.obj)
                 .then((docRef) => {
-                    console.log('data pushed', docRef)
-                    res(true);
+                    console.log('data pushed', docRef.id)
+                    res(docRef.id);
                 }).catch((err) => {
                     console.log('data not pushed')
                     rej(err);

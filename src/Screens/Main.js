@@ -34,6 +34,9 @@ class Main extends Component {
         clearTimeout(this.timmerRef);
 
     }
+    navigateToForm=()=>{
+        this.props.navigation.navigate("surveyForm");
+    }
 
     setAngryisVisibleTrue = (image, text, audioText, userResponse) => {
         this.setState({ angryisVisible: true, image, text, audioText, userResponse });
@@ -74,10 +77,10 @@ class Main extends Component {
                 <StatusBar hidden />
                 {
                     this.state.angryisVisible ?
-                        <AngryModal userResponse={this.state.userResponse} toggleisVisible={this.toggleisVisible} setDefault={this.setDefault} text={this.state.text} smilyeImage={this.state.image} audioText={this.state.audioText} />
+                        <AngryModal userResponse={this.state.userResponse} toggleisVisible={this.toggleisVisible} setDefault={this.setDefault} text={this.state.text} smilyeImage={this.state.image} audioText={this.state.audioText} navigateToForm={this.navigateToForm} />
                         :
                         this.state.isVisible ?
-                            <Modal userResponse={this.state.userResponse} toggleisVisible={this.toggleisVisible} setDefault={this.setDefault} text={this.state.text} smilyeImage={this.state.image} audioText={this.state.audioText} />
+                            <Modal userResponse={this.state.userResponse} toggleisVisible={this.toggleisVisible} setDefault={this.setDefault} text={this.state.text} smilyeImage={this.state.image} audioText={this.state.audioText} navigateToForm={this.navigateToForm} />
                             :
                             null
                 }
