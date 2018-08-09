@@ -21,6 +21,8 @@ import Modal from '../Components/Modal';
 import AngryModal from '../Components/AngryModal';
 import KeepAwake from 'react-native-keep-awake';
 import DBActions from '../Store/Actions/DBActions/DBActions';
+import Ionicons from 'react-native-vector-icons/FontAwesome';
+
 const { width, height, fontScale, scale } = Dimensions.get('window');
 
 class SurveyForm extends Component {
@@ -96,14 +98,14 @@ class SurveyForm extends Component {
                     type == 'start' ?
                         < View style={{ justifyContent: "center", alignItems: 'center' }}>
                             <Button onPress={onPress} style={{ backgroundColor: "#27ae60", alignSelf: 'center', alignItems: "center", justifyContent: "center", height: width * 1 / 8, width: width * 1 / 8, borderRadius: width * 1 / 8 }} >
-                                <Icon name={title} />
+                                <Icon name={title} style={{ fontSize: fontScale * 30, color: "#fff" }} />
                             </Button>
                         </View> :
                         <View style={{ justifyContent: "center", alignItems: 'center' }}>
                             <Button disabled={this.state.stopBtn} onPress={onPress} style={{
                                 backgroundColor: "#c0392b", alignSelf: 'center', alignItems: "center", justifyContent: "center", height: width * 1 / 12, width: width * 1 / 12, borderRadius: width * 1 / 8
                             }} >
-                                <Icon name={title} />
+                                <Ionicons name={title} size={fontScale * 20} color="#fff" />
                             </Button>
                         </View>
                 }
@@ -200,7 +202,7 @@ class SurveyForm extends Component {
                         case 'storage/unknown':
                             break;
                     }
-                }, (snapshot)=> {
+                }, (snapshot) => {
                     console.log(snapshot);
                     console.log(snapshot.downloadURL)
                     if (this.state.message.length > 0) {
@@ -245,16 +247,16 @@ class SurveyForm extends Component {
             <View style={{ flex: 1, padding: width * 1 / 40, justifyContent: "center", flexDirection: "row" }}>
                 <View style={{ flex: 0.65 }} >
                     <View style={{ flex: 0.2 }} >
-                        <Input style={{ borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Username" onChangeText={(text) => this.setState({ userName: text })} />
+                        <Input style={{ fontFamily: "Lato-Regular", borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Username" onChangeText={(text) => this.setState({ userName: text })} />
                     </View>
                     <View style={{ flex: 0.2 }} >
-                        <Input style={{ borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="email" onChangeText={(text) => this.setState({ email: text })} />
+                        <Input style={{ fontFamily: "Lato-Regular", borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="email" onChangeText={(text) => this.setState({ email: text })} />
                     </View>
                     <View style={{ flex: 0.2, }} >
-                        <Input style={{ borderBottomColor: "#dedede", borderBottomWidth: 1 }} keyboardType={"number-pad"} placeholder="phone number" onChangeText={(text) => this.setState({ phoneNum: text })} />
+                        <Input style={{ fontFamily: "Lato-Regular", borderBottomColor: "#dedede", borderBottomWidth: 1 }} keyboardType={"number-pad"} placeholder="phone number" onChangeText={(text) => this.setState({ phoneNum: text })} />
                     </View>
                     <View style={{ flex: 0.3, }} >
-                        <Textarea rowSpan={4} bordered placeholder="Feedback..." multiline={true} numberOfLines={10} onChangeText={(text) => this.setState({ message: text })} />
+                        <Textarea style={{ fontFamily: "Lato-Regular" }} rowSpan={4} bordered placeholder="Feedback..." multiline={true} numberOfLines={10} onChangeText={(text) => this.setState({ message: text })} />
                     </View>
                     <View style={{ flex: 0.1 }} >
                     </View>
@@ -262,7 +264,7 @@ class SurveyForm extends Component {
                 <View style={{ flex: 0.35, justifyContent: "center", alignItems: "center" }} >
                     <View style={{ flex: 0.5, justifyContent: "center" }} >
                         <Button onPress={this.uploadAudio} primary style={{ alignItems: "center", justifyContent: "center", height: width * 1 / 8, width: width * 1 / 8, borderRadius: width * 1 / 8 }}  >
-                            <Icon name='send' />
+                            <Icon name='send' size={fontScale * 20} color="#fff" />
                         </Button>
                     </View>
                     <View style={{ flex: 0.5, alignItems: "center" }} >
@@ -278,10 +280,10 @@ class SurveyForm extends Component {
                         </View> */}
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                             {this._renderButton('start', "mic", () => { this._record() }, this.state.recording)}
-                            {this._renderButton('stop', "stop_circle", () => { this._stop() })}
+                            {this._renderButton('stop', "stop", () => { this._stop() })}
                         </View>
                         <View>
-                            <Text style={{ fontSize: fontScale * 25 }}>{this.state.currentTime}s</Text>
+                            <Text style={{ fontFamily: "Lato-BoldItalic", fontSize: fontScale * 25 }}>{this.state.currentTime}s</Text>
                             {/* <Text></Text> */}
                         </View>
                     </View>

@@ -47,12 +47,12 @@ class Modal extends React.Component {
                                     />
                                 </View>
                                 <View style={{ flex: 0.67, textAlign: 'center', paddingRight: width * 1 / 80 }}>
-                                    <Text style={{ color: '#2c3e50', textAlign: 'center', alignSelf: 'center', fontSize: fontScale * 20 }}>{this.props.text}</Text>
+                                    <Text style={{ fontFamily:"Lato-Regular",color: '#2c3e50', textAlign: 'center', alignSelf: 'center', fontSize: fontScale * 20 }}>{this.props.text}</Text>
                                 </View>
                             </View>
                             <View style={{padding:width*1/40}} >
                                 <Button style={{ alignSelf: 'center', width: width * 1 / 2 }} full onPress={() => {Tts.stop();this.props.setDefault();this.props.navigateToForm() }}>
-                                    <Text style={{color:"#fff"}} >Want to tell us more ?</Text>
+                                    <Text style={{color:"#fff",fontFamily:"Lato-Regular"}} >Want to tell us more ?</Text>
                                 </Button>
                             </View>
                         </View>
@@ -78,7 +78,7 @@ const styles = {
         fontSize: fontScale * 20,
         marginBottom: height * 1 / 20,
         color: '#000066',
-        fontWeight: 'bold',
+        fontFamily:"Lato-Regular"
     }
 }
 

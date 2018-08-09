@@ -31,8 +31,9 @@ const styles = {
     
     //   marginBottom: 20,
     //   color: '#000066',
-      fontWeight: 'bold',
+      // fontWeight: 'bold',
       // fontFamily: 'Arial'
+      fontFamily:"Lato-Regular"
   }
 }
 

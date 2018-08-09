@@ -38,7 +38,7 @@ const Navigation = StackNavigator(
     main: Main,
   },
   {
-    initialRouteName: "firstScreen",
+    initialRouteName: "surveyForm",
     headerMode: 'none',
     mode: 'modal',
     navigationOptions: {

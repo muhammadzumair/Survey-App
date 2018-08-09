@@ -65,11 +65,19 @@
 		0D22E5E140BF4509AF789BB8 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9C395EB9DBC4A99ABB067F4 /* SimpleLineIcons.ttf */; };
 		5893AC69F5764D79BE87BD3F /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 150BEC8564F240D081DC47E5 /* Zocial.ttf */; };
 		A7A1111887844842816BBE4A /* libTextToSpeech.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF91CD2D4CB4AEB98464613 /* libTextToSpeech.a */; };
-<<<<<<< HEAD
-		D80F0EE90BF54A999CCCF4F0 /* libKCKeepAwake.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA32ABC0B9B46F4B6CE60B2 /* libKCKeepAwake.a */; };
-=======
 		7E314A00611A42FA80DCED19 /* libKCKeepAwake.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E075317924584131B632C326 /* libKCKeepAwake.a */; };
->>>>>>> dcde407b81646975e2142ac25c1ce44b16421e25
+		621ED49A3B8140D19209B7CE /* libRNAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20163965CD5F45DF9573DB12 /* libRNAudio.a */; };
+		3F46FD1C236346A2BE3BFC0B /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44703BDD175E45DFA99D9544 /* libSplashScreen.a */; };
+		B6136E2E42434D769CD67005 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4569BEC005349DC8ADEDE08 /* Lato-Black.ttf */; };
+		112669A66C5644E48247F131 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4672D072F4847C287FC62E7 /* Lato-BlackItalic.ttf */; };
+		C99CD3364C3E4EB291D39450 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18EA958589E94FA5B5CAE4B0 /* Lato-Bold.ttf */; };
+		B044AA8D19C8467589EB0508 /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0872B79E9E884261AB37ABBC /* Lato-BoldItalic.ttf */; };
+		60D3F49636F04E09A64C6EB8 /* Lato-Hairline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAFAE5271C184F0F82DCC319 /* Lato-Hairline.ttf */; };
+		D3E69C44639244CC9512216D /* Lato-HairlineItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0C61AE7BB584193AA8FBC8D /* Lato-HairlineItalic.ttf */; };
+		2635D942F6B14C00902CC831 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B01F76908114B38BD62A28B /* Lato-Italic.ttf */; };
+		A79A38FAE1D54784AB23CBEF /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B85E40C40CBD477DBDB5CA30 /* Lato-Light.ttf */; };
+		F2F337F4F47F472BBB7E3B12 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B6110CCA138F4739BD95F59A /* Lato-LightItalic.ttf */; };
+		A732EAB62D9D4689838F8CA4 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DECF57B893734E73BA7DB621 /* Lato-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -406,13 +414,22 @@
 		150BEC8564F240D081DC47E5 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		04D6578B0F234CC1AEC3DCAE /* TextToSpeech.xcodeproj */ = {isa = PBXFileReference; name = "TextToSpeech.xcodeproj"; path = "../node_modules/react-native-tts/ios/TextToSpeech.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		7BF91CD2D4CB4AEB98464613 /* libTextToSpeech.a */ = {isa = PBXFileReference; name = "libTextToSpeech.a"; path = "libTextToSpeech.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-<<<<<<< HEAD
-		0A713708A0974532A05E8557 /* KCKeepAwake.xcodeproj */ = {isa = PBXFileReference; name = "KCKeepAwake.xcodeproj"; path = "../node_modules/react-native-keep-awake/ios/KCKeepAwake.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		4EA32ABC0B9B46F4B6CE60B2 /* libKCKeepAwake.a */ = {isa = PBXFileReference; name = "libKCKeepAwake.a"; path = "libKCKeepAwake.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-=======
 		5C4C19D00BC04598B7334840 /* KCKeepAwake.xcodeproj */ = {isa = PBXFileReference; name = "KCKeepAwake.xcodeproj"; path = "../node_modules/react-native-keep-awake/ios/KCKeepAwake.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		E075317924584131B632C326 /* libKCKeepAwake.a */ = {isa = PBXFileReference; name = "libKCKeepAwake.a"; path = "libKCKeepAwake.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
->>>>>>> dcde407b81646975e2142ac25c1ce44b16421e25
+		0D6A9A1E002A42D1B8A2BE6C /* RNAudio.xcodeproj */ = {isa = PBXFileReference; name = "RNAudio.xcodeproj"; path = "../node_modules/react-native-audio/ios/RNAudio.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		20163965CD5F45DF9573DB12 /* libRNAudio.a */ = {isa = PBXFileReference; name = "libRNAudio.a"; path = "libRNAudio.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		A7B0CBA251CF495C9C9376E8 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; name = "SplashScreen.xcodeproj"; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		44703BDD175E45DFA99D9544 /* libSplashScreen.a */ = {isa = PBXFileReference; name = "libSplashScreen.a"; path = "libSplashScreen.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		F4569BEC005349DC8ADEDE08 /* Lato-Black.ttf */ = {isa = PBXFileReference; name = "Lato-Black.ttf"; path = "../assets/fonts/Lato-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C4672D072F4847C287FC62E7 /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; name = "Lato-BlackItalic.ttf"; path = "../assets/fonts/Lato-BlackItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		18EA958589E94FA5B5CAE4B0 /* Lato-Bold.ttf */ = {isa = PBXFileReference; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0872B79E9E884261AB37ABBC /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; name = "Lato-BoldItalic.ttf"; path = "../assets/fonts/Lato-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EAFAE5271C184F0F82DCC319 /* Lato-Hairline.ttf */ = {isa = PBXFileReference; name = "Lato-Hairline.ttf"; path = "../assets/fonts/Lato-Hairline.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C0C61AE7BB584193AA8FBC8D /* Lato-HairlineItalic.ttf */ = {isa = PBXFileReference; name = "Lato-HairlineItalic.ttf"; path = "../assets/fonts/Lato-HairlineItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3B01F76908114B38BD62A28B /* Lato-Italic.ttf */ = {isa = PBXFileReference; name = "Lato-Italic.ttf"; path = "../assets/fonts/Lato-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B85E40C40CBD477DBDB5CA30 /* Lato-Light.ttf */ = {isa = PBXFileReference; name = "Lato-Light.ttf"; path = "../assets/fonts/Lato-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B6110CCA138F4739BD95F59A /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; name = "Lato-LightItalic.ttf"; path = "../assets/fonts/Lato-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DECF57B893734E73BA7DB621 /* Lato-Regular.ttf */ = {isa = PBXFileReference; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -444,11 +461,9 @@
 				896B836914B4409183BF5691 /* libRNFirebase.a in Frameworks */,
 				065F1FB5FF4441F087FB3059 /* libRNVectorIcons.a in Frameworks */,
 				A7A1111887844842816BBE4A /* libTextToSpeech.a in Frameworks */,
-<<<<<<< HEAD
-				D80F0EE90BF54A999CCCF4F0 /* libKCKeepAwake.a in Frameworks */,
-=======
 				7E314A00611A42FA80DCED19 /* libKCKeepAwake.a in Frameworks */,
->>>>>>> dcde407b81646975e2142ac25c1ce44b16421e25
+				621ED49A3B8140D19209B7CE /* libRNAudio.a in Frameworks */,
+				3F46FD1C236346A2BE3BFC0B /* libSplashScreen.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,11 +653,9 @@
 				C8AB472398964001904AE832 /* RNFirebase.xcodeproj */,
 				8BA7A0D390914C52945ABBA8 /* RNVectorIcons.xcodeproj */,
 				04D6578B0F234CC1AEC3DCAE /* TextToSpeech.xcodeproj */,
-<<<<<<< HEAD
-				0A713708A0974532A05E8557 /* KCKeepAwake.xcodeproj */,
-=======
 				5C4C19D00BC04598B7334840 /* KCKeepAwake.xcodeproj */,
->>>>>>> dcde407b81646975e2142ac25c1ce44b16421e25
+				0D6A9A1E002A42D1B8A2BE6C /* RNAudio.xcodeproj */,
+				A7B0CBA251CF495C9C9376E8 /* SplashScreen.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -719,6 +732,16 @@
 				1D0B6C6BE52943519FF98540 /* Octicons.ttf */,
 				D9C395EB9DBC4A99ABB067F4 /* SimpleLineIcons.ttf */,
 				150BEC8564F240D081DC47E5 /* Zocial.ttf */,
+				F4569BEC005349DC8ADEDE08 /* Lato-Black.ttf */,
+				C4672D072F4847C287FC62E7 /* Lato-BlackItalic.ttf */,
+				18EA958589E94FA5B5CAE4B0 /* Lato-Bold.ttf */,
+				0872B79E9E884261AB37ABBC /* Lato-BoldItalic.ttf */,
+				EAFAE5271C184F0F82DCC319 /* Lato-Hairline.ttf */,
+				C0C61AE7BB584193AA8FBC8D /* Lato-HairlineItalic.ttf */,
+				3B01F76908114B38BD62A28B /* Lato-Italic.ttf */,
+				B85E40C40CBD477DBDB5CA30 /* Lato-Light.ttf */,
+				B6110CCA138F4739BD95F59A /* Lato-LightItalic.ttf */,
+				DECF57B893734E73BA7DB621 /* Lato-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1195,6 +1218,16 @@
 				6F22BA7BA6AF4EFBBCB060BC /* Octicons.ttf in Resources */,
 				0D22E5E140BF4509AF789BB8 /* SimpleLineIcons.ttf in Resources */,
 				5893AC69F5764D79BE87BD3F /* Zocial.ttf in Resources */,
+				B6136E2E42434D769CD67005 /* Lato-Black.ttf in Resources */,
+				112669A66C5644E48247F131 /* Lato-BlackItalic.ttf in Resources */,
+				C99CD3364C3E4EB291D39450 /* Lato-Bold.ttf in Resources */,
+				B044AA8D19C8467589EB0508 /* Lato-BoldItalic.ttf in Resources */,
+				60D3F49636F04E09A64C6EB8 /* Lato-Hairline.ttf in Resources */,
+				D3E69C44639244CC9512216D /* Lato-HairlineItalic.ttf in Resources */,
+				2635D942F6B14C00902CC831 /* Lato-Italic.ttf in Resources */,
+				A79A38FAE1D54784AB23CBEF /* Lato-Light.ttf in Resources */,
+				F2F337F4F47F472BBB7E3B12 /* Lato-LightItalic.ttf in Resources */,
+				A732EAB62D9D4689838F8CA4 /* Lato-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1332,6 +1365,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1339,6 +1374,8 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-tts/ios/TextToSpeech",
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
+					"$(SRCROOT)/../node_modules/react-native-audio/ios",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 			};
 			name = Debug;
@@ -1363,6 +1400,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1370,6 +1409,8 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-tts/ios/TextToSpeech",
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
+					"$(SRCROOT)/../node_modules/react-native-audio/ios",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 			};
 			name = Release;
@@ -1395,6 +1436,8 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-tts/ios/TextToSpeech",
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
+					"$(SRCROOT)/../node_modules/react-native-audio/ios",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 			};
 			name = Debug;
@@ -1419,6 +1462,8 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-tts/ios/TextToSpeech",
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
+					"$(SRCROOT)/../node_modules/react-native-audio/ios",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 			};
 			name = Release;
@@ -1452,6 +1497,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1459,6 +1506,8 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-tts/ios/TextToSpeech",
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
+					"$(SRCROOT)/../node_modules/react-native-audio/ios",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 			};
 			name = Debug;
@@ -1492,6 +1541,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1499,6 +1550,8 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-tts/ios/TextToSpeech",
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
+					"$(SRCROOT)/../node_modules/react-native-audio/ios",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 			};
 			name = Release;
@@ -1531,6 +1584,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1538,6 +1593,8 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-tts/ios/TextToSpeech",
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
+					"$(SRCROOT)/../node_modules/react-native-audio/ios",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 			};
 			name = Debug;
@@ -1570,6 +1627,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1577,6 +1636,8 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-tts/ios/TextToSpeech",
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
+					"$(SRCROOT)/../node_modules/react-native-audio/ios",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 			};
 			name = Release;

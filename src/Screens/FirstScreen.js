@@ -47,7 +47,7 @@ class FirstScreen extends Component {
                 <KeepAwake />
                 <StatusBar hidden={true} />
                 <View style={{ flex: 0.2, }} >
-                    <Text style={{ fontSize: fontScale * 30, fontWeight: 'bold' }}>Please Select Your Branch Location</Text>
+                    <Text style={{ fontFamily:"Lato-BoldItalic",fontSize: fontScale * 30,  }}>Please Select Your Branch Location</Text>
                 </View>
                 <View style={{ flex: 0.2, justifyContent: "center", width: width * 1 / 2 }} >
                     <Item picker>
@@ -56,13 +56,16 @@ class FirstScreen extends Component {
                                
                                 
                                 height: height * 1 / 10,
-                                width: width * 1 / 2
+                                width: width * 1 / 2,
+                                fontFamily:"Lato-Regular"
+                               
                             }}
                             mode="dropdown"
                             iosHeader="Select your branch"
                             iosIcon={<Icon name="ios-arrow-down-outline" />}
                             selectedValue={this.state.selected}
                             onValueChange={value => { this.handler(value) }}
+                            
                         >
                             <Picker.Item label="none" value="none" />
                             {/* <Picker.Item label="Tariq Road" value="Tariq Road" />
@@ -72,7 +75,7 @@ class FirstScreen extends Component {
                             <Picker.Item label="Clifton" value="Clifton" /> */}
                             {
                                 this.props.locations.map((value,i)=>{
-                                    return <Picker.Item label={value.key} value={value.key} key={i} />
+                                    return <Picker.Item  label={value.key} value={value.key} key={i} />
                                 })
                             }
                         </Picker>
@@ -82,12 +85,12 @@ class FirstScreen extends Component {
                 <View style={{ flex: 0.4, width: width * 1 / 2, justifyContent: "center" }} >
                     <Item  >
 
-                        <Input placeholder="enter key" value={this.state.inputText} onChangeText={(text) => { this.setState({ inputText: text }) }} />
+                        <Input style={{fontFamily:"Lato-Regular"}}  placeholder="enter key" value={this.state.inputText} onChangeText={(text) => { this.setState({ inputText: text }) }} />
                     </Item>
                 </View>
                 <View style={{ flex: 0.2, width: width * 1 / 2 }} >
                     <Button style={{ alignSelf: 'center', width: width * 1 / 2 }} full onPress={() => { this.buttonHandler() }}>
-                        <Text>Next</Text>
+                        <Text style={{fontFamily:"Lato-Regular"}} >Next</Text>
                     </Button>
                 </View>
             </View>
