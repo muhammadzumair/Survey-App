@@ -13,8 +13,9 @@ import FirstScreen from './src/Screens/FirstScreen';
 import ServeyForm from './src/Screens/SurveyForm';
 import AudioExample from './src/Screens/AudioRecord';
 import Main from './src/Screens/Main';
+import SurveyForm from './src/Screens/SurveyForm';
 import { Provider } from "react-redux";
-import {store} from './src/Store/index';
+import { store } from './src/Store/index';
 
 
 export default class App extends Component {
@@ -32,13 +33,14 @@ export default class App extends Component {
 
 const Navigation = StackNavigator(
   {
-    audioExample: AudioExample,
     serveyForm: ServeyForm,
+    audioExample: AudioExample,
     firstScreen: FirstScreen,
     main: Main,
+    surveyForm:SurveyForm
   },
   {
-    initialRouteName: "audioExample",
+    // initialRouteName: "audioExample",
     headerMode: 'none',
     mode: 'modal',
     navigationOptions: {

@@ -1,65 +1,283 @@
 import React, { Component } from 'react';
-import { View, StatusBar, Text, Dimensions, Animated, BackHandler, ToastAndroid } from 'react-native';
-import { Item, Input, Textarea, Button } from 'native-base';
+import {
+    AppRegistry,
+    StyleSheet,
+    Text,
+    View,
+    TouchableHighlight,
+    Platform,
+    PermissionsAndroid,
+    Dimensions,
+} from 'react-native';
+import Firebase from 'react-native-firebase';
+// import Sound from 'react-native-sound';
+import { AudioRecorder, AudioUtils } from 'react-native-audio';
+import { Input, Textarea, Button, Icon } from "native-base"
+import { SmileyButton } from '../Components';
 import { connect } from 'react-redux';
+import Tts from 'react-native-tts';
+import Modal from '../Components/Modal';
+import AngryModal from '../Components/AngryModal';
 import KeepAwake from 'react-native-keep-awake';
 const { width, height, fontScale, scale } = Dimensions.get('window');
 
-
-class SurveyForm extends Component {
+export default class SurveyFrom extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-        }
+            currentTime: 0.0,
+            recording: false,
+            paused: false,
+            stoppedRecording: false,
+            finished: false,
+            audioPath: AudioUtils.DocumentDirectoryPath + '/test.aac',
+            hasPermission: undefined,
+            filePath: ''
+        };
+    }
+    prepareRecordingPath(audioPath) {
+        AudioRecorder.prepareRecordingAtPath(audioPath, {
+            SampleRate: 22050,
+            Channels: 1,
+            AudioQuality: "Low",
+            AudioEncoding: "aac",
+            AudioEncodingBitRate: 32000
+        });
     }
 
+    componentDidMount() {
+        this._checkPermission().then((hasPermission) => {
+            this.setState({ hasPermission });
 
-    render() {
-        this.props.isError ? ToastAndroid.show(this.props.errorMessage) : null
+            if (!hasPermission) return;
+
+            this.prepareRecordingPath(this.state.audioPath);
+
+            AudioRecorder.onProgress = (data) => {
+                this.setState({ currentTime: Math.floor(data.currentTime) });
+            };
+
+            AudioRecorder.onFinished = (data) => {
+                // Android callback comes in the form of a promise instead.
+                if (Platform.OS === 'ios') {
+                    this._finishRecording(data.status === "OK", data.audioFileURL, data.audioFileSize);
+                }
+            };
+        });
+    }
+
+    _checkPermission() {
+        if (Platform.OS !== 'android') {
+            return Promise.resolve(true);
+        }
+
+        const rationale = {
+            'title': 'Microphone Permission',
+            'message': 'AudioExample needs access to your microphone so you can record audio.'
+        };
+
+        return PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.RECORD_AUDIO, rationale)
+            .then((result) => {
+                console.log('Permission result:', result);
+                return (result === true || result === PermissionsAndroid.RESULTS.GRANTED);
+            });
+    }
+
+    _renderButton(type, title, onPress, active) {
+        var style = (active) ? styles.activeButtonText : styles.buttonText;
 
         return (
-            <View style={{ flex: 1, padding: width * 1 / 30, flexDirection:'row' }} >
-                <KeepAwake />
-                <View style={{flex:0.65}}>
-                    <View style={{ flex: 0.2 }}>
-                        <Input style={{ flex: 1, borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Username" />
+            <View style={{ flex: 1 }}>
+                {
+                    type == 'start' ?
+                        < View style={{ justifyContent: "center", alignItems: 'center' }}>
+                            <Button onPress={onPress} style={{ backgroundColor: "#27ae60", alignSelf: 'center', alignItems: "center", justifyContent: "center", height: width * 1 / 8, width: width * 1 / 8, borderRadius: width * 1 / 8 }} >
+                                <Icon name={title} />
+                            </Button>
+                        </View> :
+                        <View style={{ justifyContent: "center", alignItems: 'center' }}>
+                            <Button onPress={onPress} style={{
+                                backgroundColor: "#c0392b", alignSelf: 'center', alignItems: "center", justifyContent: "center", height: width * 1 / 12, width: width * 1 / 12, borderRadius: width * 1 / 8
+                            }} >
+                                <Icon name={title} />
+                            </Button>
+                        </View>
+                }
+            </View>
+        );
+    }
+    async _stop() {
+        if (!this.state.recording) {
+            console.warn('Can\'t stop, not recording!');
+            return;
+        }
+
+        this.setState({ stoppedRecording: true, recording: false, paused: false });
+
+        try {
+            const filePath = await AudioRecorder.stopRecording();
+
+            if (Platform.OS === 'android') {
+                this._finishRecording(true, filePath);
+            }
+            return filePath;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    async _record() {
+        if (this.state.recording) {
+            console.warn('Already recording!');
+            return;
+        }
+
+        if (!this.state.hasPermission) {
+            console.warn('Can\'t record, no permission granted!');
+            return;
+        }
+
+        if (this.state.stoppedRecording) {
+            this.prepareRecordingPath(this.state.audioPath);
+        }
+
+        this.setState({ recording: true, paused: false });
+        let filePath;
+        try {
+            filePath = await AudioRecorder.startRecording();
+            setTimeout(() => {
+                console.log('recording....')
+            }, 1000)
+        } catch (error) {
+            console.error(error);
+        }
+        this.setState({ filePath: filePath });
+    }
+
+    _finishRecording(didSucceed, filePath, fileSize) {
+        console.log('filePath from state: ', this.state.filePath);
+        console.log("stop...")
+        this.setState({ finished: didSucceed });
+        console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize || 0} bytes`);
+    }
+    uploadAudio = () => {
+        let file = this.state.filePath;
+
+        let metadata = {
+            contentType: 'audio/mpeg_4'
+        };
+
+        console.log('before file uploading')
+        var uploadTask = Firebase.storage().ref('/audio').put(file, metadata);
+        console.log('after file uploading')
+        uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+            function (snapshot) {
+                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + '% done');
+                switch (snapshot.state) {
+                    case Firebase.storage.TaskState.PAUSED: // or 'paused'
+                        console.log('Upload is paused');
+                        break;
+                    case Firebase.storage.TaskState.RUNNING: // or 'running'
+                        console.log('Upload is running');
+                        break;
+                }
+            }, function (error) {
+                console.log('error message: ', error.code);
+                switch (error.code) {
+                    case 'storage/unauthorized':
+                        break;
+
+                    case 'storage/canceled':
+                        break;
+
+                    case 'storage/unknown':
+                        break;
+                }
+            }, function (snapshot) {
+                console.log(snapshot);
+                console.log(snapshot.downloadURL)
+                return snapshot.downloadURL;
+            });
+    }
+    render() {
+        return (
+            <View style={{ flex: 1, padding: width * 1 / 40, justifyContent: "center", flexDirection: "row" }}>
+                <View style={{ flex: 0.65 }} >
+                    <View style={{ flex: 0.2 }} >
+                        <Input style={{ borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Username" />
                     </View>
-                    <View style={{ flex: 0.2 }}>
-                        <Input style={{ flex: 1, borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Email" keyboardType='email-address' />
+                    <View style={{ flex: 0.2 }} >
+                        <Input style={{ borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="email" />
                     </View>
-                    <View style={{ flex: 0.2 }}>
-                        <Input style={{ flex: 1, borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Phone Number" keyboardType='number-pad' />
+                    <View style={{ flex: 0.2, }} >
+                        <Input style={{ borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="phone number" />
                     </View>
-                    <View style={{ flex: 0.4 }}>
-                        <Textarea rowSpan={5} numberOfLines={5} multiline={true} bordered placeholder="Message..." />
+                    <View style={{ flex: 0.3, }} >
+                        <Textarea rowSpan={4} bordered placeholder="message" multiline={true} numberOfLines={10} />
+                    </View>
+                    <View style={{ flex: 0.1 }} >
                     </View>
                 </View>
-                <View style={{ flex: 0.35 }}>
-                    {/* <Button /> */}
+                <View style={{ flex: 0.35, justifyContent: "center", alignItems: "center" }} >
+                    <View style={{ flex: 0.5, justifyContent: "center" }} >
+                        <Button onPress={this.uploadAudio} primary style={{ alignItems: "center", justifyContent: "center", height: width * 1 / 8, width: width * 1 / 8, borderRadius: width * 1 / 8 }}  >
+                            <Icon name='send' />
+                        </Button>
+                    </View>
+                    <View style={{ flex: 0.5, alignItems: "center" }} >
+                        {/* <View style={{ justifyContent: "center", borderWidth: 2, }}>
+                            <Button onPress={this._record} style={{ backgroundColor: "#27ae60", alignItems: "center", justifyContent: "center", height: width * 1 / 8, width: width * 1 / 8, borderRadius: width * 1 / 8 }} >
+                                <Icon name='mic' />
+                            </Button>
+                        </View>
+                        <View style={{ justifyContent: "center", borderWidth: 2, }}>
+                            <Button onPress={this._stop} style={{ backgroundColor: "#c0392b", alignItems: "center", justifyContent: "center", height: width * 1 / 12, width: width * 1 / 12, borderRadius: width * 1 / 8 }} >
+                                <Icon name='mic' />
+                            </Button>
+                        </View> */}
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                            {this._renderButton('start', "mic", () => { this._record() }, this.state.recording)}
+                            {this._renderButton('stop', "stop_circle", () => { this._stop() })}
+                        </View>
+                        <View>
+                            <Text style={{ fontSize: fontScale * 25 }}>{this.state.currentTime}s</Text>
+                            {/* <Text></Text> */}
+                        </View>
+                    </View>
                 </View>
-            </View >
+            </View>
         )
-
     }
 }
-
-const styles = {
-
-}
-
-const mapStateToProps = (state) => {
-    return {
-        isError: state.dbReducer.isError,
-        errorMessage: state.dbReducer.errorMessage
+var styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#2b608a",
+    },
+    controls: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+    },
+    progressText: {
+        paddingTop: 50,
+        fontSize: 50,
+        color: "#fff"
+    },
+    button: {
+        padding: 20
+    },
+    disabledButtonText: {
+        color: '#eee'
+    },
+    buttonText: {
+        fontSize: 20,
+        color: "#fff"
+    },
+    activeButtonText: {
+        fontSize: 20,
+        color: "#B81F00"
     }
-}
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SurveyForm);
-// export default Main;
+});

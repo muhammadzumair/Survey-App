@@ -7,7 +7,8 @@ let INITIAL_STATE = {
     userResponsePush: '',
     isProgress: false,
     currLocation: '',
-    date:''
+    date:'',
+
 }
 
 export default function dbReducer(state = INITIAL_STATE, action) {
