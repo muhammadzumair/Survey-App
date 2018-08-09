@@ -25,6 +25,15 @@ export default class FirebaseDB {
                 })
         })
     }
+    static userFeeeBack(branch, date, key, obj) {
+        return new Promise((res, rej) => {
+            Firebase.firestore().collection("Response").doc(branch).collection(date).doc(key).update(obj).then(() => {
+                res(true)
+            }).catch(err => {
+                rej(err)
+            })
+        })
+    }
 }
 function snapshotToArray(snapshot) {
     var returnArr = [];
@@ -41,7 +50,7 @@ function snapshotToArray(snapshot) {
 };
 
 
-function dateFun(){
+function dateFun() {
     let dateRef = new Date();
-    return `${dateRef.getDate()}-${dateRef.getMonth()+1}-${dateRef.getFullYear()}`;    
+    return `${dateRef.getDate()}-${dateRef.getMonth() + 1}-${dateRef.getFullYear()}`;
 }

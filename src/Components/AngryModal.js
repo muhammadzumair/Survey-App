@@ -62,10 +62,15 @@ class AngryModal extends React.Component {
                                 this.state.isClick ?
                                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                         <Text style={{ fontSize: fontScale * 40 }}>Thankyou</Text>
+                                        <View style={{ flex: 0.2, padding: width * 1 / 40 }} >
+                                            <Button style={{ alignSelf: 'center', width: width * 1 / 2 }} full onPress={() => { Tts.stop(); this.props.setDefault(); this.props.navigateToForm() }}>
+                                                <Text style={{ color: "#fff" }} >Want to tell us more ?</Text>
+                                            </Button>
+                                        </View>
                                     </View>
                                     :
-                                    <View style={{flex:1}} >
-                                        <View style={{flex:0.8, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <View style={{ flex: 1 }} >
+                                        <View style={{ flex: 0.8, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                             <View style={{ flex: 0.33, paddingLeft: width * 1 / 80 }}>
                                                 <Image resizeMode="contain" style={styles.smilyeStyle}
                                                     source={this.props.smilyeImage}
@@ -97,11 +102,7 @@ class AngryModal extends React.Component {
                                                 </View>
                                             </View>
                                         </View>
-                                        <View style={{flex:0.2, padding: width * 1 / 40 }} >
-                                            <Button style={{ alignSelf: 'center', width: width * 1 / 2 }} full onPress={() => { Tts.stop(); this.props.setDefault(); this.props.navigateToForm() }}>
-                                                <Text style={{ color: "#fff" }} >Want to tell us more ?</Text>
-                                            </Button>
-                                        </View>
+
                                     </View>
 
                             }

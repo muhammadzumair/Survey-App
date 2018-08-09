@@ -1,4 +1,5 @@
 import actionTypes from '../actionTypes';
+import { startWith } from 'rxjs/operators/startWith';
 
 let INITIAL_STATE = {
     locations: [],
@@ -8,7 +9,7 @@ let INITIAL_STATE = {
     isProgress: false,
     currLocation: '',
     date:'',
-
+    userResponseKey:'',
 }
 
 export default function dbReducer(state = INITIAL_STATE, action) {
@@ -21,7 +22,7 @@ export default function dbReducer(state = INITIAL_STATE, action) {
         case actionTypes.USER_RESPONSE_PUSH:
             return {...state, isProgress: true};
         case actionTypes.USER_RESPONSE_PUSH_SUCCESS:
-            return {...state, isProgress: false, userResponsePush: 'userResponsePush'};
+            return {...state, isProgress: false, userResponseKey: action.payload};
         case actionTypes.USER_RESPONSE_PUSH_FAIL:
             return {...state, isError: true, isProgress: false, errorMessage: action.payload};
 
@@ -37,6 +38,14 @@ export default function dbReducer(state = INITIAL_STATE, action) {
 
         case actionTypes.MAKE_ISERROR_FALSE:
             return {...state, isError: false};
+
+
+        case actionTypes.USER_FEEDBACK_PROGRESS:
+        return {...state,isProgress:true};
+        case actionTypes.USER_FEEDBACK_SUCCESS:
+        return {...state,isProgress:false,userResponseKey:''}
+        case actionTypes.USER_FEEDBACK_FAIL:
+        return {...state,isProgress:false,isError:true,errorMessage:action.payload}
 
         default:
             return state;

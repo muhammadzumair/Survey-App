@@ -50,4 +50,10 @@ export default class DBActions{
             type: actionTypes.MAKE_ISERROR_FALSE
         }
     }
+    static userFeedBack(branch,date,key,obj){
+        return{
+            type:actionTypes.USER_FEEDBACK_PROGRESS,
+            payload:{branch,date,key,obj}
+        }
+    }
 }

@@ -53,18 +53,14 @@ class FirstScreen extends Component {
                     <Item picker>
                         <Picker
                             style={{
-                                color: '#616161',
-                                backgroundColor: '#fff',
+                               
+                                
                                 height: height * 1 / 10,
                                 width: width * 1 / 2
                             }}
-                            iosHeader="Select one"
                             mode="dropdown"
-                            iosIcon={<Icon name="arrow-dropdown-circle" style={{ color: "#007aff", fontSize: 25 }} />}
-                            placeholder="Select your SIM"
-                            placeholderStyle={{ color: "#bfc6ea" }}
-                            placeholderIconColor="#007aff"
-
+                            iosHeader="Select your branch"
+                            iosIcon={<Icon name="ios-arrow-down-outline" />}
                             selectedValue={this.state.selected}
                             onValueChange={value => { this.handler(value) }}
                         >
