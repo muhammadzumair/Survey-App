@@ -11,6 +11,7 @@
     "react": "16.4.1",
     "react-native": "0.56.0",
     "react-native-animatable": "^1.3.0",
+    "react-native-audio": "^4.1.3",
     "react-native-firebase": "^4.3.7",
     "react-native-keep-awake": "^3.0.1",
     "react-native-modal": "^6.4.0",

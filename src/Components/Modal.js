@@ -50,7 +50,6 @@ class Modal extends React.Component {
                                 </View>
                             </View>
                         </View>
-
                     </TouchableOpacity>
                 </Animatable.View>
             </View>

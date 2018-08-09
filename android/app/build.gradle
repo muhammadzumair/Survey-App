@@ -152,12 +152,15 @@ dependencies {
     implementation project(':react-native-keep-awake')
     implementation project(':react-native-tts')
     implementation project(':react-native-vector-icons')
+    implementation project(':react-native-audio')
+
 
     implementation project(':react-native-firebase')
     implementation project(':react-native-firebase')
     implementation "com.google.android.gms:play-services-base:15.0.1"
     implementation "com.google.firebase:firebase-firestore:17.0.2"
     implementation "com.google.firebase:firebase-core:16.0.1"
+    implementation "com.google.firebase:firebase-storage:16.0.1"
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules

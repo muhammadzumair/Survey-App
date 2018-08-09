@@ -10,10 +10,11 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import FirstScreen from './src/Screens/FirstScreen';
+import ServeyForm from './src/Screens/SurveyForm';
+import AudioExample from './src/Screens/AudioRecord';
 import Main from './src/Screens/Main';
 import { Provider } from "react-redux";
 import {store} from './src/Store/index';
-
 
 
 export default class App extends Component {
@@ -31,11 +32,13 @@ export default class App extends Component {
 
 const Navigation = StackNavigator(
   {
+    audioExample: AudioExample,
+    serveyForm: ServeyForm,
     firstScreen: FirstScreen,
     main: Main,
   },
   {
-    initialRouteName: "firstScreen",
+    initialRouteName: "audioExample",
     headerMode: 'none',
     mode: 'modal',
     navigationOptions: {
