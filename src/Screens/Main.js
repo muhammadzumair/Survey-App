@@ -85,7 +85,7 @@ class Main extends Component {
                             null
                 }
                 <View style={{ flex: 0.2, paddingTop: height * 1 / 30 }}>
-                    <Text style={{ fontSize: fontScale * 30, color: '#000066', alignSelf: 'center' }}>Pleasure Or Displeasure</Text>
+                    <Text style={{ fontFamily: 'Lato-BoldItalic',fontSize: fontScale * 30, color: '#000066', alignSelf: 'center' }}>Pleasure Or Displeasure</Text>
                 </View>
                 <View style={smilyeContainerStyle}>
                     <SmileyButton
@@ -125,7 +125,7 @@ class Main extends Component {
                     />
                 </View>
                 <View style={{ flex: 0.2 }}>
-                    <Text style={{ fontSize: fontScale * 20, color: '#0066ff', alignSelf: 'center', paddingTop: height * 1 / 20 }}>Please Rate Our Service!!!</Text>
+                    <Text style={{ fontFamily: 'Lato-Regular',fontSize: fontScale * 20, color: '#0066ff', alignSelf: 'center', paddingTop: height * 1 / 20 }}>Please Rate Our Service!!!</Text>
                 </View>
             </View >
         )
