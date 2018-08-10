@@ -167,12 +167,12 @@ class SurveyForm extends Component {
         console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize || 0} bytes`);
     }
     uploadAudio = () => {
-        this._stop();
         if (this.state.message.length > 0 && this.state.message.length < 10) {
             ToastAndroid.show("feeback message is too short", ToastAndroid.SHORT)
             return;
         }
         if (this.state.filePath.length > 0) {
+            this._stop();
             let file = this.state.filePath;
             let metadata = {
                 contentType: 'audio/mpeg_4'
@@ -282,9 +282,9 @@ class SurveyForm extends Component {
                             <Text style={{ fontSize: fontScale * 25, fontFamily: 'Lato-BoldItalic' }}>{this.state.currentTime}s</Text>
                         </View>
                         <View>
-                        {
-                            this.props.isProgress?<ActivityIndicator size="large" color="#0000ff" /> :null
-                        }
+                            {
+                                this.props.isProgress ? <ActivityIndicator size="large" color="#0000ff" /> : null
+                            }
                         </View>
                     </View>
                 </View>
@@ -337,8 +337,8 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
     return {
         userFeedBack: (branch, date, key, obj) => dispatch(DBActions.userFeedBack(branch, date, key, obj)),
-        showLoader:()=>dispatch(DBActions.showLoaderOnUploading()),
-        hiderLoader:()=>dispatch(DBActions.hideLoaderOnUploading())
+        showLoader: () => dispatch(DBActions.showLoaderOnUploading()),
+        hiderLoader: () => dispatch(DBActions.hideLoaderOnUploading())
     }
 }
 
