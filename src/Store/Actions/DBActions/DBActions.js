@@ -56,4 +56,14 @@ export default class DBActions{
             payload:{branch,date,key,obj}
         }
     }
+    static showLoaderOnUploading(){
+        return{
+            type:actionTypes.SHOW_LOADER_ON_UPLOADING
+        }
+    }
+    static hideLoaderOnUploading(){
+        return{
+            type:actionTypes.HIDE_LOADER_ON_UPLOADING
+        }
+    }
 }
