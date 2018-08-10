@@ -247,16 +247,16 @@ class SurveyForm extends Component {
             <View style={{ flex: 1, padding: width * 1 / 40, justifyContent: "center", flexDirection: "row" }}>
                 <View style={{ flex: 0.65 }} >
                     <View style={{ flex: 0.2 }} >
-                        <Input style={{ fontFamily: "Lato-Regular", borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Username" onChangeText={(text) => this.setState({ userName: text })} />
+                        <Input style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Username" onChangeText={(text) => this.setState({ userName: text })} />
                     </View>
                     <View style={{ flex: 0.2 }} >
-                        <Input style={{ fontFamily: "Lato-Regular", borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="email" onChangeText={(text) => this.setState({ email: text })} />
+                        <Input style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="email" onChangeText={(text) => this.setState({ email: text })} />
                     </View>
                     <View style={{ flex: 0.2, }} >
-                        <Input style={{ fontFamily: "Lato-Regular", borderBottomColor: "#dedede", borderBottomWidth: 1 }} keyboardType={"number-pad"} placeholder="phone number" onChangeText={(text) => this.setState({ phoneNum: text })} />
+                        <Input style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} keyboardType={"number-pad"} placeholder="phone number" onChangeText={(text) => this.setState({ phoneNum: text })} />
                     </View>
                     <View style={{ flex: 0.3, }} >
-                        <Textarea style={{ fontFamily: "Lato-Regular" }} rowSpan={4} bordered placeholder="Feedback..." multiline={true} numberOfLines={10} onChangeText={(text) => this.setState({ message: text })} />
+                        <Textarea rowSpan={4} style={{ fontFamily: 'Lato-Regular' }} bordered placeholder="Feedback..." multiline={true} numberOfLines={10} onChangeText={(text) => this.setState({ message: text })} />
                     </View>
                     <View style={{ flex: 0.1 }} >
                     </View>
@@ -268,23 +268,12 @@ class SurveyForm extends Component {
                         </Button>
                     </View>
                     <View style={{ flex: 0.5, alignItems: "center" }} >
-                        {/* <View style={{ justifyContent: "center", borderWidth: 2, }}>
-                            <Button onPress={this._record} style={{ backgroundColor: "#27ae60", alignItems: "center", justifyContent: "center", height: width * 1 / 8, width: width * 1 / 8, borderRadius: width * 1 / 8 }} >
-                                <Icon name='mic' />
-                            </Button>
-                        </View>
-                        <View style={{ justifyContent: "center", borderWidth: 2, }}>
-                            <Button onPress={this._stop} style={{ backgroundColor: "#c0392b", alignItems: "center", justifyContent: "center", height: width * 1 / 12, width: width * 1 / 12, borderRadius: width * 1 / 8 }} >
-                                <Icon name='mic' />
-                            </Button>
-                        </View> */}
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                             {this._renderButton('start', "mic", () => { this._record() }, this.state.recording)}
                             {this._renderButton('stop', "stop", () => { this._stop() })}
                         </View>
                         <View>
-                            <Text style={{ fontFamily: "Lato-BoldItalic", fontSize: fontScale * 25 }}>{this.state.currentTime}s</Text>
-                            {/* <Text></Text> */}
+                            <Text style={{ fontSize: fontScale * 25,fontFamily: 'Lato-BoldItalic' }}>{this.state.currentTime}s</Text>
                         </View>
                     </View>
                 </View>

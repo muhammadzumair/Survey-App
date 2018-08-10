@@ -32,7 +32,7 @@ const styles = {
       fontSize: fontScale * 20,
       marginBottom: height * 1/20,
       color: '#000066',
-      // fontWeight: 'bold',
+      fontFamily: 'Lato-Regular',
       // fontFamily: 'Arial'
       fontFamily:"Lato-Regular"
   }
