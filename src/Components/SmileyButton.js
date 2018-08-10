@@ -22,8 +22,8 @@ const styles = {
     alignSelf: 'center'
   },
   smilyeStyle:{
-    width: 180,
-    height: 180
+    width: width * 1/3.5,
+    height: width * 1/3.5
   },
   textStyle:{
       width: '100%',

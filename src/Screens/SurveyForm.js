@@ -166,6 +166,7 @@ class SurveyForm extends Component {
         console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize || 0} bytes`);
     }
     uploadAudio = () => {
+        this._stop();
         if (this.state.message.length > 0 && this.state.message.length < 10) {
             ToastAndroid.show("feeback message is too short", ToastAndroid.SHORT)
             return;
@@ -176,7 +177,7 @@ class SurveyForm extends Component {
                 contentType: 'audio/mpeg_4'
             };
             console.log('before file uploading');
-            var uploadTask = Firebase.storage().ref('/audio').put(file, metadata);
+            var uploadTask = Firebase.storage().ref(`/audio${this.props.userResponseKey}`).put(file, metadata);
             console.log('after file uploading')
             uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
                 (snapshot) => {
