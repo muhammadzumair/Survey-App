@@ -47,6 +47,11 @@ export default function dbReducer(state = INITIAL_STATE, action) {
         case actionTypes.USER_FEEDBACK_FAIL:
         return {...state,isProgress:false,isError:true,errorMessage:action.payload}
 
+        case actionTypes.SHOW_LOADER_ON_UPLOADING:
+        return{...state,isProgress:true};
+        case actionTypes.HIDE_LOADER_ON_UPLOADING:
+        return{...state,isProgress:false};
+        
         default:
             return state;
     }

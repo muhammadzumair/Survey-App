@@ -8,7 +8,8 @@ import {
     Platform,
     PermissionsAndroid,
     Dimensions,
-    ToastAndroid, TextComponent
+    ToastAndroid, TextComponent,
+    ActivityIndicator
 } from 'react-native';
 import Firebase from 'react-native-firebase';
 // import Sound from 'react-native-sound';
@@ -97,12 +98,12 @@ class SurveyForm extends Component {
                 {
                     type == 'start' ?
                         < View style={{ justifyContent: "center", alignItems: 'center' }}>
-                            <Button onPress={onPress} style={{ backgroundColor: "#27ae60", alignSelf: 'center', alignItems: "center", justifyContent: "center", height: width * 1 / 8, width: width * 1 / 8, borderRadius: width * 1 / 8 }} >
+                            <Button disabled={this.props.isProgress} onPress={onPress} style={{ backgroundColor: "#27ae60", alignSelf: 'center', alignItems: "center", justifyContent: "center", height: width * 1 / 8, width: width * 1 / 8, borderRadius: width * 1 / 8 }} >
                                 <Icon name={title} style={{ fontSize: fontScale * 30, color: "#fff" }} />
                             </Button>
                         </View> :
                         <View style={{ justifyContent: "center", alignItems: 'center' }}>
-                            <Button disabled={this.state.stopBtn} onPress={onPress} style={{
+                            <Button disabled={this.props.isProgress} onPress={onPress} style={{
                                 backgroundColor: "#c0392b", alignSelf: 'center', alignItems: "center", justifyContent: "center", height: width * 1 / 12, width: width * 1 / 12, borderRadius: width * 1 / 8
                             }} >
                                 <Ionicons name={title} size={fontScale * 20} color="#fff" />
@@ -181,6 +182,7 @@ class SurveyForm extends Component {
             uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
                 (snapshot) => {
                     var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    this.props.showLoader()
                     console.log('Upload is ' + progress + '% done');
                     switch (snapshot.state) {
                         case Firebase.storage.TaskState.PAUSED: // or 'paused'
@@ -213,6 +215,7 @@ class SurveyForm extends Component {
                             message: this.state.message,
                             audioURL: snapshot.downloadURL
                         }
+                        this.props.hiderLoader()
                         this.props.userFeedBack(this.props.currLocation, this.props.date, this.props.userResponseKey, obj)
                     } else {
                         let obj = {
@@ -221,6 +224,7 @@ class SurveyForm extends Component {
                             email: this.state.email,
                             audioURL: snapshot.downloadURL
                         }
+                        this.props.hiderLoader()
                         this.props.userFeedBack(this.props.currLocation, this.props.date, this.props.userResponseKey, obj)
                     }
                     this.props.navigation.goBack()
@@ -234,6 +238,7 @@ class SurveyForm extends Component {
                 message: this.state.message
             }
             if (this.state.message.length >= 10) {
+                this.props.hiderLoader()
                 this.props.userFeedBack(this.props.currLocation, this.props.date, this.props.userResponseKey, obj)
                 this.props.navigation.goBack()
             } else {
@@ -247,23 +252,23 @@ class SurveyForm extends Component {
             <View style={{ flex: 1, padding: width * 1 / 40, justifyContent: "center", flexDirection: "row" }}>
                 <View style={{ flex: 0.65 }} >
                     <View style={{ flex: 0.2 }} >
-                        <Input style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Username" onChangeText={(text) => this.setState({ userName: text })} />
+                        <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Username" onChangeText={(text) => this.setState({ userName: text })} />
                     </View>
                     <View style={{ flex: 0.2 }} >
-                        <Input style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="email" onChangeText={(text) => this.setState({ email: text })} />
+                        <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="email" onChangeText={(text) => this.setState({ email: text })} />
                     </View>
                     <View style={{ flex: 0.2, }} >
-                        <Input style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} keyboardType={"number-pad"} placeholder="phone number" onChangeText={(text) => this.setState({ phoneNum: text })} />
+                        <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} keyboardType={"number-pad"} placeholder="phone number" onChangeText={(text) => this.setState({ phoneNum: text })} />
                     </View>
                     <View style={{ flex: 0.3, }} >
-                        <Textarea rowSpan={4} style={{ fontFamily: 'Lato-Regular' }} bordered placeholder="Feedback..." multiline={true} numberOfLines={10} onChangeText={(text) => this.setState({ message: text })} />
+                        <Textarea disabled={this.props.isProgress} rowSpan={4} style={{ fontFamily: 'Lato-Regular' }} bordered placeholder="Feedback..." multiline={true} numberOfLines={10} onChangeText={(text) => this.setState({ message: text })} />
                     </View>
                     <View style={{ flex: 0.1 }} >
                     </View>
                 </View>
                 <View style={{ flex: 0.35, justifyContent: "center", alignItems: "center" }} >
                     <View style={{ flex: 0.5, justifyContent: "center" }} >
-                        <Button onPress={this.uploadAudio} primary style={{ alignItems: "center", justifyContent: "center", height: width * 1 / 8, width: width * 1 / 8, borderRadius: width * 1 / 8 }}  >
+                        <Button disabled={this.props.isProgress} onPress={this.uploadAudio} primary style={{ alignItems: "center", justifyContent: "center", height: width * 1 / 8, width: width * 1 / 8, borderRadius: width * 1 / 8 }}  >
                             <Icon name='send' size={fontScale * 20} color="#fff" />
                         </Button>
                     </View>
@@ -273,7 +278,12 @@ class SurveyForm extends Component {
                             {this._renderButton('stop', "stop", () => { this._stop() })}
                         </View>
                         <View>
-                            <Text style={{ fontSize: fontScale * 25,fontFamily: 'Lato-BoldItalic' }}>{this.state.currentTime}s</Text>
+                            <Text style={{ fontSize: fontScale * 25, fontFamily: 'Lato-BoldItalic' }}>{this.state.currentTime}s</Text>
+                        </View>
+                        <View>
+                        {
+                            this.props.isProgress?<ActivityIndicator size="large" color="#0000ff" /> :null
+                        }
                         </View>
                     </View>
                 </View>
@@ -315,7 +325,7 @@ var styles = StyleSheet.create({
 });
 let mapStateToProps = (state) => {
     return {
-
+        isProgress: state.dbReducer.isProgress,
         isError: state.dbReducer.isError,
         errorMessage: state.dbReducer.errorMessage,
         currLocation: state.dbReducer.currLocation,
@@ -325,7 +335,9 @@ let mapStateToProps = (state) => {
 }
 let mapDispatchToProps = (dispatch) => {
     return {
-        userFeedBack: (branch, date, key, obj) => dispatch(DBActions.userFeedBack(branch, date, key, obj))
+        userFeedBack: (branch, date, key, obj) => dispatch(DBActions.userFeedBack(branch, date, key, obj)),
+        showLoader:()=>dispatch(DBActions.showLoaderOnUploading()),
+        hiderLoader:()=>dispatch(DBActions.hideLoaderOnUploading())
     }
 }
 
