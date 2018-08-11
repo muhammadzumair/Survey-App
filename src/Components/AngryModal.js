@@ -52,7 +52,7 @@ class AngryModal extends React.Component {
                     }}>
                     <TouchableOpacity style={{ height: height, justifyContent: 'center' }} activeOpacity={1} >
                         <View style={{ flex: 0.8, width: width * 1 / 1.1, borderColor: "#bdc3c7", borderWidth: 1, backgroundColor: "#ecf0f1", alignSelf: "center" }}>
-                            <View style={{ alignSelf: 'flex-end', padding: width * 1 / 80, marginBottom: height*1/35 }}>
+                            <View style={{ alignSelf: 'flex-end', padding: width * 1 / 80, marginBottom: height * 1 / 35 }}>
                                 <TouchableOpacity onPress={() => { Tts.stop(); this.props.setDefault() }}>
                                     <Image style={{ width: 25, height: 25 }} source={require('../../assets/no.png')} />
                                 </TouchableOpacity>
@@ -62,11 +62,14 @@ class AngryModal extends React.Component {
                             {
                                 this.state.isClick ?
                                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                        <Text style={{ fontSize: fontScale * 40, fontFamily: 'Lato-BoldItalic' }}>Thankyou</Text>
-                                        <View style={{ flex: 0.2, padding: width * 1 / 40 }} >
-                                            <Button style={{ alignSelf: 'center', width: width * 1 / 2 }} full onPress={() => { Tts.stop(); this.props.setDefault(); this.props.navigateToForm() }}>
-                                                <Text style={{ color: "#fff", fontFamily: 'Lato-Regular' }} >Want to tell us more ?</Text>
-                                            </Button>
+                                        <View style={{flex:0.5, justifyContent:'flex-end'}}>
+                                            <Text style={{ fontSize: fontScale * 40, fontFamily: 'Lato-BoldItalic' }}>Thankyou</Text>
+                                        </View>
+                                        <View style={{ flex: 0.5, padding: width * 1 / 40, justifyContent:'flex-start' }} >
+                                            <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', marginTop: height * 1 / 40, borderRadius: 5, padding: width * 1 / 80 }} onPress={() => { Tts.stop(); this.props.setDefault(); this.props.navigateToForm() }}>
+                                                <Icon name="message" size={40} color="#000" />
+                                                <Text style={{ fontFamily: 'Lato-Regular', textAlign: 'center' }} >Tell us more ?</Text>
+                                            </TouchableOpacity>
                                         </View>
                                     </View>
                                     :
@@ -95,7 +98,7 @@ class AngryModal extends React.Component {
                                                             <Image style={[styles.imagestyle, { alignSelf: 'center' }]} source={images.environment} />
                                                             <Text style={{ fontFamily: 'Lato-Regular' }}>Enviroment</Text>
                                                         </TouchableOpacity>
-                                                        <TouchableOpacity style={{ padding: width * 1 / 80 , justifyContent: 'center', alignItems: 'center' }} onPress={() => this.pushResponse('Bad Service')}>
+                                                        <TouchableOpacity style={{ padding: width * 1 / 80, justifyContent: 'center', alignItems: 'center' }} onPress={() => this.pushResponse('Bad Service')}>
                                                             <Image style={[styles.imagestyle, { alignSelf: 'center' }]} source={images.badService} />
                                                             <Text style={{ fontFamily: 'Lato-Regular' }}>Bad Service</Text>
                                                         </TouchableOpacity>
