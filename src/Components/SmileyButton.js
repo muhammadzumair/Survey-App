@@ -31,6 +31,7 @@ const styles = {
       alignSelf: 'center',
       fontSize: fontScale * 20,
       marginBottom: height * 1/20,
+      marginTop: height * 1/30,
       color: '#000066',
       fontFamily: 'Lato-Regular',
       // fontFamily: 'Arial'

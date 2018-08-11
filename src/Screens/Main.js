@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StatusBar, Text, Dimensions, Animated, BackHandler , ToastAndroid } from 'react-native';
+import { View, StatusBar, Text, Dimensions, Animated, BackHandler, ToastAndroid } from 'react-native';
 import { SmileyButton } from '../Components';
 import { connect } from 'react-redux';
 import Tts from 'react-native-tts';
@@ -34,7 +34,7 @@ class Main extends Component {
         clearTimeout(this.timmerRef);
 
     }
-    navigateToForm=()=>{
+    navigateToForm = () => {
         this.props.navigation.navigate("surveyForm");
     }
 
@@ -63,7 +63,7 @@ class Main extends Component {
     }
 
     render() {
-        this.props.isError?ToastAndroid.show(this.props.errorMessage):null
+        this.props.isError ? ToastAndroid.show(this.props.errorMessage) : null
         const { containerStyle, smilyeContainerStyle } = styles;
         const smilyeImages = {
             happy: require('../../assets/happy.png'),
@@ -84,8 +84,8 @@ class Main extends Component {
                             :
                             null
                 }
-                <View style={{ flex: 0.2, paddingTop: height * 1 / 30 }}>
-                    <Text style={{ fontFamily: 'Lato-BoldItalic',fontSize: fontScale * 30, color: '#000066', alignSelf: 'center' }}>Pleasure Or Displeasure</Text>
+                <View style={{ flex: 0.2, paddingTop: height * 1 / 30, paddingTop: height*1/30 }}>
+                    <Text style={{ fontFamily: 'Lato-BoldItalic', fontSize: fontScale * 30, color: '#000066', alignSelf: 'center' }}>Please Rate Our Service!!!</Text>
                 </View>
                 <View style={smilyeContainerStyle}>
                     <SmileyButton
@@ -124,9 +124,6 @@ class Main extends Component {
 
                     />
                 </View>
-                <View style={{ flex: 0.2 }}>
-                    <Text style={{ fontFamily: 'Lato-Regular',fontSize: fontScale * 20, color: '#0066ff', alignSelf: 'center', paddingTop: height * 1 / 20 }}>Please Rate Our Service!!!</Text>
-                </View>
             </View >
         )
 
@@ -140,22 +137,21 @@ const styles = {
         width,
         alignItems: 'center',
         flexWrap: 'wrap',
-        backgroundColor: '#e6ffff'
+        backgroundColor: '#ecf0f1',
+        paddingTop: height * 1/30
     },
     smilyeContainerStyle: {
-        flex: 0.6,
+        flex: 0.8,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        aliginSelf: 'center',
-        paddingRight: width * 1 / 30,
-        paddingLeft: width * 1 / 30
-    },
+        // alignItems: 'center'
+    }
 }
 
 const mapStateToProps = (state) => {
     return {
-        isError:state.dbReducer.isError,
-        errorMessage:state.dbReducer.errorMessage
+        isError: state.dbReducer.isError,
+        errorMessage: state.dbReducer.errorMessage
     }
 }
 

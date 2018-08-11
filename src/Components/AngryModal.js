@@ -7,6 +7,7 @@ import Tts from 'react-native-tts';
 import Firebase from 'react-native-firebase';
 import DBActions from '../Store/Actions/DBActions/DBActions';
 import { Button } from "native-base"
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
 const images = {
@@ -51,7 +52,7 @@ class AngryModal extends React.Component {
                     }}>
                     <TouchableOpacity style={{ height: height, justifyContent: 'center' }} activeOpacity={1} >
                         <View style={{ flex: 0.8, width: width * 1 / 1.1, borderColor: "#bdc3c7", borderWidth: 1, backgroundColor: "#ecf0f1", alignSelf: "center" }}>
-                            <View style={{ alignSelf: 'flex-end', padding: width * 1 / 80 }}>
+                            <View style={{ alignSelf: 'flex-end', padding: width * 1 / 80, marginBottom: height*1/35 }}>
                                 <TouchableOpacity onPress={() => { Tts.stop(); this.props.setDefault() }}>
                                     <Image style={{ width: 25, height: 25 }} source={require('../../assets/no.png')} />
                                 </TouchableOpacity>
@@ -71,7 +72,7 @@ class AngryModal extends React.Component {
                                     :
                                     <View style={{ flex: 1 }} >
                                         <View style={{ flex: 0.8, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                            <View style={{ flex: 0.33, paddingLeft: width * 1 / 80 }}>
+                                            <View style={{ flex: 0.33, paddingLeft: width * 1 / 30 }}>
                                                 <Image resizeMode="contain" style={styles.smilyeStyle}
                                                     source={this.props.smilyeImage}
                                                 />
@@ -80,23 +81,27 @@ class AngryModal extends React.Component {
                                                 <Text style={{ fontFamily: 'Lato-Regular', color: '#2c3e50', textAlign: 'center', alignSelf: 'center', fontSize: fontScale * 20 }}>{this.props.text}</Text>
                                                 <View style={{ alignItems: 'center' }}>
                                                     <View style={{ flexDirection: 'row' }}>
-                                                        <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Waiting Time')}>
-                                                            <Image style={styles.imagestyle} source={images.waitingTime} />
+                                                        <TouchableOpacity style={{ padding: width * 1 / 80, justifyContent: 'center', alignItems: 'center' }} onPress={() => this.pushResponse('Waiting Time')}>
+                                                            <Image style={[styles.imagestyle, { alignSelf: 'center' }]} source={images.waitingTime} />
                                                             <Text style={{ fontFamily: 'Lato-Regular' }}>waiting Time</Text>
                                                         </TouchableOpacity>
                                                         <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Attitude')}>
-                                                            <Image style={styles.imagestyle} source={images.attitude} />
+                                                            <Image style={[styles.imagestyle, { alignSelf: 'center' }]} source={images.attitude} />
                                                             <Text style={{ fontFamily: 'Lato-Regular' }}>Attitude</Text>
                                                         </TouchableOpacity>
                                                     </View>
                                                     <View style={{ flexDirection: 'row' }}>
-                                                        <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Enviroment')}>
-                                                            <Image style={styles.imagestyle} source={images.environment} />
+                                                        <TouchableOpacity style={{ padding: width * 1 / 80, justifyContent: 'center', alignItems: 'center' }} onPress={() => this.pushResponse('Enviroment')}>
+                                                            <Image style={[styles.imagestyle, { alignSelf: 'center' }]} source={images.environment} />
                                                             <Text style={{ fontFamily: 'Lato-Regular' }}>Enviroment</Text>
                                                         </TouchableOpacity>
-                                                        <TouchableOpacity style={{ padding: width * 1 / 80 }} onPress={() => this.pushResponse('Bad Service')}>
-                                                            <Image style={styles.imagestyle} source={images.badService} />
+                                                        <TouchableOpacity style={{ padding: width * 1 / 80 , justifyContent: 'center', alignItems: 'center' }} onPress={() => this.pushResponse('Bad Service')}>
+                                                            <Image style={[styles.imagestyle, { alignSelf: 'center' }]} source={images.badService} />
                                                             <Text style={{ fontFamily: 'Lato-Regular' }}>Bad Service</Text>
+                                                        </TouchableOpacity>
+                                                        <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', marginTop: height * 1 / 40, borderRadius: 5, padding: width * 1 / 80 }} onPress={() => { Tts.stop(); this.props.setDefault(); this.props.navigateToForm() }}>
+                                                            <Icon name="message" size={40} color="#000" />
+                                                            <Text style={{ fontFamily: 'Lato-Regular', textAlign: 'center' }} >Tell us more ?</Text>
                                                         </TouchableOpacity>
                                                     </View>
                                                 </View>
@@ -126,7 +131,7 @@ const styles = {
         fontSize: fontScale * 20,
         marginBottom: height * 1 / 20,
         color: '#000066',
-        fontFamily:"Lato-Regular"
+        fontFamily: "Lato-Regular"
         // fontFamily: 'Arial'
     },
     imagestyle: {

@@ -12,7 +12,6 @@ import {
     ActivityIndicator
 } from 'react-native';
 import Firebase from 'react-native-firebase';
-// import Sound from 'react-native-sound';
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
 import { Input, Textarea, Button, Icon } from "native-base"
 import { SmileyButton } from '../Components';
@@ -41,6 +40,25 @@ class SurveyForm extends Component {
             filePath: '', userName: "", email: "", phoneNum: "", message: "",
             stopBtn: true,
         };
+        this.timeRef = {};
+    }
+    setTime = (time) => {
+        this.timeRef = setTimeout(() => {
+            this.props.navigation.goBack();
+        }, time)
+    }
+    clearTime = () => {
+        clearInterval(this.timeRef);
+    }
+    // componentDidMount() {
+    // }
+    inputHandler = (name, text) => {
+        let obj ={};
+        obj[name] = text;
+        this.setState(obj,()=>{
+            this.clearTime();
+            this.setTime(30000);
+        } )
     }
     prepareRecordingPath(audioPath) {
         AudioRecorder.prepareRecordingAtPath(audioPath, {
@@ -53,6 +71,7 @@ class SurveyForm extends Component {
     }
 
     componentDidMount() {
+        this.setTime(15000);
         this._checkPermission().then((hasPermission) => {
             this.setState({ hasPermission });
 
@@ -132,6 +151,9 @@ class SurveyForm extends Component {
             console.error(error);
         }
     }
+    componentWillUnmount(){
+        this.clearTime();
+    }
     async _record() {
         if (this.state.recording) {
             console.warn('Already recording!');
@@ -151,9 +173,7 @@ class SurveyForm extends Component {
         let filePath;
         try {
             filePath = await AudioRecorder.startRecording();
-            setTimeout(() => {
-                console.log('recording....')
-            }, 1000)
+            this.clearTime();
         } catch (error) {
             console.error(error);
         }
@@ -163,6 +183,8 @@ class SurveyForm extends Component {
     _finishRecording(didSucceed, filePath, fileSize) {
         console.log('filePath from state: ', this.state.filePath);
         console.log("stop...")
+        this.clearTime();
+        this.setTime(5000);
         this.setState({ finished: didSucceed });
         console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath} and size of ${fileSize || 0} bytes`);
     }
@@ -173,6 +195,7 @@ class SurveyForm extends Component {
         }
         if (this.state.filePath.length > 0) {
             this._stop();
+            this.clearTime();
             let file = this.state.filePath;
             let metadata = {
                 contentType: 'audio/mpeg_4'
@@ -228,7 +251,7 @@ class SurveyForm extends Component {
                         this.props.hiderLoader()
                         this.props.userFeedBack(this.props.currLocation, this.props.date, this.props.userResponseKey, obj)
                     }
-                    this.props.navigation.goBack()
+                    this.props.navigation.goBack();
                 });
         }
         else {
@@ -253,16 +276,16 @@ class SurveyForm extends Component {
             <View style={{ flex: 1, padding: width * 1 / 40, justifyContent: "center", flexDirection: "row" }}>
                 <View style={{ flex: 0.65 }} >
                     <View style={{ flex: 0.2 }} >
-                        <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Username" onChangeText={(text) => this.setState({ userName: text })} />
+                        <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Username" onChangeText={(text) => this.inputHandler('userName', text)} />
                     </View>
                     <View style={{ flex: 0.2 }} >
-                        <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="email" onChangeText={(text) => this.setState({ email: text })} />
+                        <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="email" onChangeText={(text) => this.inputHandler('email', text)} />
                     </View>
                     <View style={{ flex: 0.2, }} >
-                        <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} keyboardType={"number-pad"} placeholder="phone number" onChangeText={(text) => this.setState({ phoneNum: text })} />
+                        <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} keyboardType={"number-pad"} placeholder="phone number" onChangeText={(text) => this.inputHandler('phoneNum', text)} />
                     </View>
                     <View style={{ flex: 0.3, }} >
-                        <Textarea disabled={this.props.isProgress} rowSpan={4} style={{ fontFamily: 'Lato-Regular' }} bordered placeholder="Feedback..." multiline={true} numberOfLines={10} onChangeText={(text) => this.setState({ message: text })} />
+                        <Textarea disabled={this.props.isProgress} rowSpan={4} style={{ fontFamily: 'Lato-Regular' }} bordered placeholder="Feedback..." multiline={true} numberOfLines={10} onChangeText={(text) => this.inputHandler('message', text)} />
                     </View>
                     <View style={{ flex: 0.1 }} >
                     </View>
