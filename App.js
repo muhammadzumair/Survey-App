@@ -14,6 +14,7 @@ import ServeyForm from './src/Screens/SurveyForm';
 import AudioExample from './src/Screens/AudioRecord';
 import Main from './src/Screens/Main';
 import SurveyForm from './src/Screens/SurveyForm';
+import ThankYouScreen from "./src/Screens/ThnakYouScreen";
 import { Provider } from "react-redux";
 import { store } from './src/Store/index';
 
@@ -36,6 +37,8 @@ const Navigation = StackNavigator(
     firstScreen: FirstScreen,
     surveyForm:SurveyForm,
     main: Main,
+    thankYouScreen:ThankYouScreen
+
   },
   {
     initialRouteName: "firstScreen",

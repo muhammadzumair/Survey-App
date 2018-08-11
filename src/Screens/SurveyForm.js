@@ -261,7 +261,7 @@ class SurveyForm extends Component {
                         this.props.hiderLoader()
                         this.props.userFeedBack(this.props.currLocation, this.props.date, this.props.userResponseKey, obj)
                     }
-                    this.props.navigation.goBack()
+                    this.props.navigation.navigate("thankYouScreen")
                 });
         }
         else {
@@ -274,7 +274,7 @@ class SurveyForm extends Component {
             if (this.state.message.length >= 10) {
                 this.props.hiderLoader()
                 this.props.userFeedBack(this.props.currLocation, this.props.date, this.props.userResponseKey, obj)
-                this.props.navigation.goBack()
+                this.props.navigation.navigate("thankYouScreen")
             } else {
                 ToastAndroid.show("feeback is required", ToastAndroid.SHORT)
             }
