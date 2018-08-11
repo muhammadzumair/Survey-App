@@ -115,12 +115,12 @@ class Main extends Component {
                     <SmileyButton
                         onPress={() => this.setAngryisVisibleTrue(
                             smilyeImages.sad,
-                            'Can You Please submit the reason for your dissatisfaction?',
+                            'Please submit the reason',
                             'Can You Please submit the reason for your dissatisfaction?',
                             'angry'
                         )}
                         smilyeImage={smilyeImages.sad}
-                        text='Sad'
+                        text='Dissatisfied'
 
                     />
                 </View>
