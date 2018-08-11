@@ -9,12 +9,12 @@ import {
     PermissionsAndroid,
     Dimensions,
     ToastAndroid, TextComponent,
-    ActivityIndicator
+    ActivityIndicator, Image, TouchableOpacity, ProgressBarAndroid
 } from 'react-native';
 import Firebase from 'react-native-firebase';
 // import Sound from 'react-native-sound';
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
-import { Input, Textarea, Button, Icon } from "native-base"
+import { Input, Textarea, Button, Icon, } from "native-base"
 import { SmileyButton } from '../Components';
 import { connect } from 'react-redux';
 import Tts from 'react-native-tts';
@@ -40,7 +40,9 @@ class SurveyForm extends Component {
             hasPermission: undefined,
             filePath: '', userName: "", email: "", phoneNum: "", message: "",
             stopBtn: true,
+            toggleRecording: false
         };
+        this.time = "";
     }
     prepareRecordingPath(audioPath) {
         AudioRecorder.prepareRecordingAtPath(audioPath, {
@@ -51,8 +53,20 @@ class SurveyForm extends Component {
             AudioEncodingBitRate: 32000
         });
     }
+    setBackGoTime = (time) => {
+        this.time = setTimeout(() => {
+            this.props.navigation.goBack()
+        }, time)
+    }
+    clearBackGoTime = () => {
+        clearTimeout(this.time)
+    }
+    componentWillUnmount() {
+        this.clearBackGoTime();
+    }
 
     componentDidMount() {
+        this.setBackGoTime(15000);
         this._checkPermission().then((hasPermission) => {
             this.setState({ hasPermission });
 
@@ -89,6 +103,16 @@ class SurveyForm extends Component {
                 return (result === true || result === PermissionsAndroid.RESULTS.GRANTED);
             });
     }
+    toggleRecordingHandler = (record, stop) => {
+        if (this.state.toggleRecording) {
+            stop();
+            this.setState({ toggleRecording: false })
+        }
+        else {
+            record();
+            this.setState({ toggleRecording: true })
+        }
+    }
 
     _renderButton(type, title, onPress, active) {
         var style = (active) ? styles.activeButtonText : styles.buttonText;
@@ -96,24 +120,31 @@ class SurveyForm extends Component {
         return (
             <View style={{ flex: 1 }}>
                 {
-                    type == 'start' ?
-                        < View style={{ justifyContent: "center", alignItems: 'center' }}>
-                            <Button disabled={this.props.isProgress} onPress={onPress} style={{ backgroundColor: "#27ae60", alignSelf: 'center', alignItems: "center", justifyContent: "center", height: width * 1 / 8, width: width * 1 / 8, borderRadius: width * 1 / 8 }} >
-                                <Icon name={title} style={{ fontSize: fontScale * 30, color: "#fff" }} />
-                            </Button>
-                        </View> :
-                        <View style={{ justifyContent: "center", alignItems: 'center' }}>
-                            <Button disabled={this.props.isProgress} onPress={onPress} style={{
-                                backgroundColor: "#c0392b", alignSelf: 'center', alignItems: "center", justifyContent: "center", height: width * 1 / 12, width: width * 1 / 12, borderRadius: width * 1 / 8
-                            }} >
-                                <Ionicons name={title} size={fontScale * 20} color="#fff" />
-                            </Button>
-                        </View>
+
+                    <View style={{ justifyContent: "center", alignItems: 'center' }}>
+                        <Button disabled={this.props.isProgress} onPress={() => { this.toggleRecordingHandler(() => { this._record() }, () => { this._stop() }) }} style={{ backgroundColor: "#27ae60", alignSelf: 'center', alignItems: "center", justifyContent: "center", height: width * 1 / 8, width: width * 1 / 8, borderRadius: width * 1 / 8 }} >
+                            {this.state.toggleRecording ? <Ionicons name={"stop"} size={fontScale * 20} color="#fff" /> : <Icon name={title} style={{ fontSize: fontScale * 30, color: "#fff" }} />}
+                        </Button>
+
+
+
+                        {/* <Image source={require('../../assets/voice_gif.gif')}  /> */}
+
+                    </View >
+                    // <View style={{ justifyContent: "center", alignItems: 'center' }}>
+                    //     {/* <Button disabled={this.props.isProgress} onPress={() => { }} style={{
+                    //         backgroundColor: "#c0392b", alignSelf: 'center', alignItems: "center", justifyContent: "center", height: width * 1 / 12, width: width * 1 / 12, borderRadius: width * 1 / 8
+                    //     }} >
+                    //         <Ionicons name={title} size={fontScale * 20} color="#fff" />
+                    //     </Button> */}
+                    //     {/* <Image source={require('../../assets/voice_image.png')}  /> */}
+                    // </View>
                 }
             </View>
         );
     }
     async _stop() {
+        this.setBackGoTime(15000);
         if (!this.state.recording) {
             console.warn('Can\'t stop, not recording!');
             return;
@@ -133,6 +164,7 @@ class SurveyForm extends Component {
         }
     }
     async _record() {
+        this.clearBackGoTime();
         if (this.state.recording) {
             console.warn('Already recording!');
             return;
@@ -173,6 +205,7 @@ class SurveyForm extends Component {
         }
         if (this.state.filePath.length > 0) {
             this._stop();
+            this.props.showLoader()
             let file = this.state.filePath;
             let metadata = {
                 contentType: 'audio/mpeg_4'
@@ -183,7 +216,7 @@ class SurveyForm extends Component {
             uploadTask.on(Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
                 (snapshot) => {
                     var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    this.props.showLoader()
+
                     console.log('Upload is ' + progress + '% done');
                     switch (snapshot.state) {
                         case Firebase.storage.TaskState.PAUSED: // or 'paused'
@@ -250,19 +283,19 @@ class SurveyForm extends Component {
     render() {
         return (
 
-            <View style={{ flex: 1, padding: width * 1 / 40, justifyContent: "center", flexDirection: "row" }}>
+            <View style={{ flex: 1, padding: width * 1 / 40, justifyContent: "center", flexDirection: "row", backgroundColor: "#ecf0f1" }}>
                 <View style={{ flex: 0.65 }} >
                     <View style={{ flex: 0.2 }} >
-                        <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Username" onChangeText={(text) => this.setState({ userName: text })} />
+                        <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Username" onChangeText={(text) => { this.setState({ userName: text }); this.clearBackGoTime(); this.setBackGoTime(30000) }} />
                     </View>
                     <View style={{ flex: 0.2 }} >
-                        <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="email" onChangeText={(text) => this.setState({ email: text })} />
+                        <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="email" onChangeText={(text) => { this.setState({ email: text }); this.clearBackGoTime(); this.setBackGoTime(30000) }} />
                     </View>
                     <View style={{ flex: 0.2, }} >
-                        <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} keyboardType={"number-pad"} placeholder="phone number" onChangeText={(text) => this.setState({ phoneNum: text })} />
+                        <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} keyboardType={"number-pad"} placeholder="phone number" onChangeText={(text) => { this.setState({ phoneNum: text }); this.clearBackGoTime(); this.setBackGoTime(30000) }} />
                     </View>
                     <View style={{ flex: 0.3, }} >
-                        <Textarea disabled={this.props.isProgress} rowSpan={4} style={{ fontFamily: 'Lato-Regular' }} bordered placeholder="Feedback..." multiline={true} numberOfLines={10} onChangeText={(text) => this.setState({ message: text })} />
+                        <Textarea disabled={true} rowSpan={4} style={{ fontFamily: 'Lato-Regular' }} bordered placeholder="Feedback..." multiline={true} numberOfLines={10} onChangeText={(text) => { this.setState({ message: text }); this.clearBackGoTime(); this.setBackGoTime(30000) }} />
                     </View>
                     <View style={{ flex: 0.1 }} >
                     </View>
@@ -275,15 +308,28 @@ class SurveyForm extends Component {
                     </View>
                     <View style={{ flex: 0.5, alignItems: "center" }} >
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                            {this._renderButton('start', "mic", () => { this._record() }, this.state.recording)}
-                            {this._renderButton('stop', "stop", () => { this._stop() })}
+                            {this._renderButton(this.state.toggleRecording, "mic", () => { this._record() }, this.state.recording)}
+                            {/* {this._renderButton(this.state.toggleRecording, "stop", () => { this._stop() })} */}
                         </View>
                         <View>
-                            <Text style={{ fontSize: fontScale * 25, fontFamily: 'Lato-BoldItalic' }}>{this.state.currentTime}s</Text>
+                            {/* <Text style={{ fontSize: fontScale * 25, fontFamily: 'Lato-BoldItalic' }}>{this.state.currentTime}s</Text> */}
+                            {
+                                this.state.toggleRecording ?
+                                    <View style={{ flex: 1 }} >
+                                        <Text style={{ fontFamily: "Lato-Regulart" }} >Listening...</Text>
+                                        <ProgressBarAndroid styleAttr="Horizontal" color="#2196F3" />
+                                    </View>
+                                    : null
+                            }
                         </View>
                         <View>
                             {
-                                this.props.isProgress ? <ActivityIndicator size="large" color="#0000ff" /> : null
+                                this.props.isProgress ?
+
+                                    <ActivityIndicator size="large" color="#0000ff" />
+
+                                    :
+                                    null
                             }
                         </View>
                     </View>
