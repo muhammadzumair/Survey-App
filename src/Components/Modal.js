@@ -49,7 +49,7 @@ class Modal extends React.Component {
                                 </View>
                                 <View style={{ flex: 0.67, alignItems: 'center', justifyContent: 'center', paddingRight: width * 1 / 80 }}>
                                     <Text style={{ fontFamily: 'Lato-Regular', color: '#2c3e50', textAlign: 'center', alignSelf: 'center', fontSize: fontScale * 20 }}>{this.props.text}</Text>
-                                    <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', marginTop: height * 1 / 40, width: width * 1 / 5, borderRadius: 5, backgroundColor: '#dcffcc', padding: width * 1 / 40 }} full onPress={() => { Tts.stop(); this.props.setDefault(); this.props.navigateToForm() }}>
+                                    <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', marginTop: height * 1 / 40, width: width * 1 / 5, borderRadius: 5,  padding: width * 1 / 40 }} full onPress={() => { Tts.stop(); this.props.setDefault(); this.props.navigateToForm() }}>
                                         <Icon name="message" size={40} color="#000" />
                                         <Text style={{ fontFamily: 'Lato-Regular', textAlign: 'center' }} >Tell us more ?</Text>
                                     </TouchableOpacity>
