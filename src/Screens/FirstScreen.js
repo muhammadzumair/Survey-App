@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StatusBar, View, Dimensions, ToastAndroid } from 'react-native';
+import { StatusBar, View, Dimensions, ToastAndroid, Image } from 'react-native';
 import Fire from '../Store/Firebase/firebaseDB';
 import KeepAwake from 'react-native-keep-awake';
 import { Container, Header, Title, Content, Button, Icon, Text, Right, Body, Left, Picker, Form, Item, Input, Label, Fab } from "native-base";
@@ -47,8 +47,13 @@ class FirstScreen extends Component {
             <View style={{ flex: 1, alignItems: "center", justifyContent: "space-between", backgroundColor: "#ecf0f1" }} >
                 <KeepAwake />
                 <StatusBar hidden={true} />
-                <View style={{ flex: 0.2, }} >
-                    <Text style={{ fontSize: fontScale * 30, fontFamily: 'Lato-Regular', padding: width * 1 / 40 }}>Please Select Your Branch Location</Text>
+                <View style={{ flex: 0.2, flexDirection: "row" }} >
+                    <View style={{ flex: 0.1, alignSelf: "flex-start" }}>
+                        <Image source={require("../../assets/ico/hdpi/icon.png")} />
+                    </View>
+                    <View style={{ flex: 0.9, alignItems: "center" }} >
+                        <Text style={{ fontSize: fontScale * 30, fontFamily: 'Lato-Regular', padding: width * 1 / 40 }}>Please Select Your Branch Location</Text>
+                    </View>
                 </View>
                 <View style={{ flex: 0.1, justifyContent: "center", width: width * 1 / 2 }} >
                     <Item picker>
@@ -88,11 +93,11 @@ class FirstScreen extends Component {
                     </Item>
                 </View>
                 <View style={{ flex: 0.2, width: width * 1 / 2 }} >
-                    <Button full style={{flex:0.5,flexDirection:"row",backgroundColor: '#1abc9c', alignSelf: 'center',borderRadius:width*1/50,alignItems:"center", }}  onPress={() => { this.buttonHandler() }}>
-                        <Text style={{fontFamily: 'Lato-Regular'}}>Next</Text>
-                        <MaterialIcons name={"navigate-next"} size={fontScale*30} color={"#fff"}  />
+                    <Button full style={{ flex: 0.5, flexDirection: "row", backgroundColor: '#1abc9c', alignSelf: 'center', borderRadius: width * 1 / 50, alignItems: "center", }} onPress={() => { this.buttonHandler() }}>
+                        <Text style={{ fontFamily: 'Lato-Regular' }}>Next</Text>
+                        <MaterialIcons name={"navigate-next"} size={fontScale * 30} color={"#fff"} />
                     </Button>
-                    
+
                 </View>
                 {/* <Fab style={{ flex: 1, backgroundColor: '#1abc9c' }} onPress={() => { this.buttonHandler() }} >
                         <MaterialIcons name={"navigate-next"} size={fontScale * 30} color={"#fff"} />
