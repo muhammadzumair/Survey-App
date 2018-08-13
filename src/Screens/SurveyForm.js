@@ -257,52 +257,62 @@ class SurveyForm extends Component {
     render() {
         return (
 
-            <View style={{ flex: 1, padding: width * 1 / 40, justifyContent: "center", flexDirection: "row", backgroundColor: "#ecf0f1" }}>
-                <View style={{ flex: 0.65 }} >
-                    <View style={{ flex: 0.2 }} >
-                        <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Username" onChangeText={(text) => { this.setState({ userName: text }); this.clearBackGoTime(); this.setBackGoTime(30000) }} />
+            <View style={{ flex: 1, backgroundColor: "#ecf0f1" }}>
+                <View style={{ flex: 0.2 ,flexDirection: 'row'}}>
+                    <View style={{flex: 0.1}}>
+                        <Image width={width*1/50} source={require('../../assets/ico/hdpi/icon.png')}/>
                     </View>
-                    <View style={{ flex: 0.2 }} >
-                        <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="email" onChangeText={(text) => { this.setState({ email: text }); this.clearBackGoTime(); this.setBackGoTime(30000) }} />
-                    </View>
-                    <View style={{ flex: 0.2, }} >
-                        <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} keyboardType={"number-pad"} placeholder="phone number" onChangeText={(text) => { this.setState({ phoneNum: text }); this.clearBackGoTime(); this.setBackGoTime(30000) }} />
-                    </View>
-                    <View style={{ flex: 0.3, }} >
-                        <Textarea disabled={true} rowSpan={4} style={{ fontFamily: 'Lato-Regular' }} bordered placeholder="Feedback..." multiline={true} numberOfLines={10} onChangeText={(text) => { this.setState({ message: text }); this.clearBackGoTime(); this.setBackGoTime(30000) }} />
-                    </View>
-                    <View style={{ flex: 0.1 }} >
+                    <View style={{flex: 0.9, justifyContent: 'center', alignItems: 'center'}}>
+                        <Text style={{fontFamily: 'Lato-Regular', fontSize: fontScale*30, color: '#000066'}}>Survey Form</Text>
                     </View>
                 </View>
-                <View style={{ flex: 0.35, justifyContent: "center", alignItems: "center" }} >
-                    <View style={{ flex: 0.5, justifyContent: "center" }} >
-                        <Button disabled={this.props.isProgress} onPress={this.uploadAudio} primary style={{ alignItems: "center", justifyContent: "center", height: width * 1 / 8, width: width * 1 / 8, borderRadius: width * 1 / 8 }}  >
-                            <Icon name='send' size={fontScale * 20} color="#fff" />
-                        </Button>
+                <View style={{ flex: 0.8, padding: width * 1 / 40, justifyContent: "center", flexDirection: "row" }}>
+                    <View style={{ flex: 0.65 }} >
+                        <View style={{ flex: 0.2 }} >
+                            <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Username" onChangeText={(text) => { this.setState({ userName: text }); this.clearBackGoTime(); this.setBackGoTime(30000) }} />
+                        </View>
+                        <View style={{ flex: 0.2 }} >
+                            <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="email" onChangeText={(text) => { this.setState({ email: text }); this.clearBackGoTime(); this.setBackGoTime(30000) }} />
+                        </View>
+                        <View style={{ flex: 0.2, }} >
+                            <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} keyboardType={"number-pad"} placeholder="phone number" onChangeText={(text) => { this.setState({ phoneNum: text }); this.clearBackGoTime(); this.setBackGoTime(30000) }} />
+                        </View>
+                        <View style={{ flex: 0.3, }} >
+                            <Textarea disabled={true} rowSpan={4} style={{ fontFamily: 'Lato-Regular' }} bordered placeholder="Feedback..." multiline={true} numberOfLines={10} onChangeText={(text) => { this.setState({ message: text }); this.clearBackGoTime(); this.setBackGoTime(30000) }} />
+                        </View>
+                        <View style={{ flex: 0.1 }} >
+                        </View>
                     </View>
-                    <View style={{ flex: 0.5, alignItems: "center" }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                            {this._renderButton(this.state.toggleRecording, "mic", () => { this._record() }, this.state.recording)}
+                    <View style={{ flex: 0.35, justifyContent: "center", alignItems: "center" }} >
+                        <View style={{ flex: 0.5, justifyContent: "center" }} >
+                            <Button disabled={this.props.isProgress} onPress={this.uploadAudio} primary style={{ alignItems: "center", justifyContent: "center", height: width * 1 / 8, width: width * 1 / 8, borderRadius: width * 1 / 8 }}  >
+                                <Icon name='send' size={fontScale * 20} color="#fff" />
+                            </Button>
                         </View>
-                        <View>
-                            {
-                                this.state.toggleRecording ?
-                                    <View style={{ flex: 1 }} >
-                                        <Text style={{ fontFamily: "Lato-Regulart" }} >Listening...</Text>
-                                        <ProgressBarAndroid styleAttr="Horizontal" color="#2196F3" />
-                                    </View>
-                                    : null
-                            }
-                        </View>
-                        <View>
-                            {
-                                this.props.isProgress ?
+                        <View style={{ flex: 0.5, alignItems: "center" }} >
+                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                {this._renderButton(this.state.toggleRecording, "mic", () => { this._record() }, this.state.recording)}
+                            </View>
+                            <View>
+                                {
+                                    this.state.toggleRecording ?
+                                        <View style={{ flex: 1 }} >
+                                            <Text style={{ fontFamily: "Lato-Regulart" }} >Listening...</Text>
+                                            <ProgressBarAndroid styleAttr="Horizontal" color="#2196F3" />
+                                        </View>
+                                        : null
+                                }
+                            </View>
+                            <View>
+                                {
+                                    this.props.isProgress ?
 
-                                    <ActivityIndicator size="large" color="#0000ff" />
+                                        <ActivityIndicator size="large" color="#0000ff" />
 
-                                    :
-                                    null
-                            }
+                                        :
+                                        null
+                                }
+                            </View>
                         </View>
                     </View>
                 </View>
