@@ -7,7 +7,7 @@ import {
     PermissionsAndroid,
     Dimensions,
     ToastAndroid, TextComponent,
-    ActivityIndicator, Image, TouchableOpacity, ProgressBarAndroid,StatusBar
+    ActivityIndicator, Image, TouchableOpacity, ProgressBarAndroid, StatusBar, PixelRatio
 } from 'react-native';
 import Firebase from 'react-native-firebase';
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
@@ -261,15 +261,29 @@ class SurveyForm extends Component {
             <View style={{ flex: 1, backgroundColor: "#ecf0f1" }} >
                 <KeepAwake />
                 <StatusBar hidden={true} />
-                <View style={{ flex: 0.2, flexDirection: "row" }} >
+                <View style={{ flex: 0.3, flexDirection: "row" }} >
                     <View style={{ flex: 0.1, alignSelf: "flex-start" }}>
-                        <Image source={require("../../assets/ico/hdpi/icon.png")} />
+                    {
+                            PixelRatio.get() === 1 ?
+                                <Image width={width * 1 / 40} source={require("../../assets/ico/mdpi/icon.png")} />
+                                :
+                                PixelRatio.get() === 1.5 ?
+                                    <Image width={width * 1 / 40} source={require("../../assets/ico/hdpi/icon.png")} />
+                                    :
+                                    PixelRatio.get() === 2 ?
+                                        <Image width={width * 1 / 40} source={require("../../assets/ico/xhdpi/icon.png")} />
+                                        :
+                                        PixelRatio.get() === 3 ?
+                                            <Image width={width * 1 / 40} source={require("../../assets/ico/xxhdpi/icon.png")} />
+                                            :
+                                            <Image width={width * 1 / 40} source={require("../../assets/ico/xxxhdpi/icon.png")} />
+                        }
                     </View>
                     <View style={{ flex: 0.9, alignItems: "center" }} >
-                        <Text style={{color:"#000066", fontSize: fontScale * 30, fontFamily: 'Lato-Regular', padding: width * 1 / 40 }}>Survey Form</Text>
+                        <Text style={{ color: "#000066", fontSize: fontScale * 30, fontFamily: 'Lato-Regular', padding: width * 1 / 40 }}>Survey Form</Text>
                     </View>
                 </View>
-                <View style={{ flex: 0.8, padding: width * 1 / 40, justifyContent: "center", flexDirection: "row", backgroundColor: "#ecf0f1" }}>
+                <View style={{ flex: 0.7, padding: width * 1 / 40, justifyContent: "center", flexDirection: "row", backgroundColor: "#ecf0f1" }}>
                     <View style={{ flex: 0.65 }} >
                         <View style={{ flex: 0.2 }} >
                             <Input disabled={this.props.isProgress} style={{ fontFamily: 'Lato-Regular', borderBottomColor: "#dedede", borderBottomWidth: 1 }} placeholder="Username" onChangeText={(text) => { this.setState({ userName: text }); this.clearBackGoTime(); this.setBackGoTime(30000) }} />

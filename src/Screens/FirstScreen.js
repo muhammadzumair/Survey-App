@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StatusBar, View, Dimensions, ToastAndroid, Image } from 'react-native';
+import { StatusBar, View, Dimensions, ToastAndroid, Image, PixelRatio } from 'react-native';
 import Fire from '../Store/Firebase/firebaseDB';
 import KeepAwake from 'react-native-keep-awake';
 import { Container, Header, Title, Content, Button, Icon, Text, Right, Body, Left, Picker, Form, Item, Input, Label, Fab } from "native-base";
@@ -49,7 +49,21 @@ class FirstScreen extends Component {
                 <StatusBar hidden={true} />
                 <View style={{ flex: 0.2, flexDirection: "row" }} >
                     <View style={{ flex: 0.1, alignSelf: "flex-start" }}>
-                        <Image source={require("../../assets/ico/hdpi/icon.png")} />
+                        {
+                            PixelRatio.get() === 1 ?
+                                <Image width={width * 1 / 40} source={require("../../assets/ico/mdpi/icon.png")} />
+                                :
+                                PixelRatio.get() === 1.5 ?
+                                    <Image width={width * 1 / 40} source={require("../../assets/ico/hdpi/icon.png")} />
+                                    :
+                                    PixelRatio.get() === 2 ?
+                                        <Image width={width * 1 / 40} source={require("../../assets/ico/xhdpi/icon.png")} />
+                                        :
+                                        PixelRatio.get() === 3 ?
+                                            <Image width={width * 1 / 40} source={require("../../assets/ico/xxhdpi/icon.png")} />
+                                            :
+                                            <Image width={width * 1 / 40} source={require("../../assets/ico/xxxhdpi/icon.png")} />
+                        }
                     </View>
                     <View style={{ flex: 0.9, alignItems: "center" }} >
                         <Text style={{ fontSize: fontScale * 30, fontFamily: 'Lato-Regular', padding: width * 1 / 40 }}>Please Select Your Branch Location</Text>

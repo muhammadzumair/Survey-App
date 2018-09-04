@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StatusBar, Text, Dimensions, Animated, BackHandler, ToastAndroid, Image } from 'react-native';
+import { View, StatusBar, Text, Dimensions, Animated, BackHandler, ToastAndroid, Image,PixelRatio } from 'react-native';
 import { SmileyButton } from '../Components';
 import { connect } from 'react-redux';
 import Tts from 'react-native-tts';
@@ -86,7 +86,21 @@ class Main extends Component {
                 }
                 <View style={{ flex: 0.2, flexDirection: 'row', justifyContent: 'flex-start', width: width }}>
                     <View style={{ flex: 0.1 }}>
-                        <Image width= {width * 1/20} source={require('../../assets/ico/hdpi/icon.png')} />
+                    {
+                            PixelRatio.get() === 1 ?
+                                <Image width={width * 1 / 40} source={require("../../assets/ico/mdpi/icon.png")} />
+                                :
+                                PixelRatio.get() === 1.5 ?
+                                    <Image width={width * 1 / 40} source={require("../../assets/ico/hdpi/icon.png")} />
+                                    :
+                                    PixelRatio.get() === 2 ?
+                                        <Image width={width * 1 / 40} source={require("../../assets/ico/xhdpi/icon.png")} />
+                                        :
+                                        PixelRatio.get() === 3 ?
+                                            <Image width={width * 1 / 40} source={require("../../assets/ico/xxhdpi/icon.png")} />
+                                            :
+                                            <Image width={width * 1 / 40} source={require("../../assets/ico/xxxhdpi/icon.png")} />
+                        }
                     </View>
                     <View style={{ justifyContent: 'center', alignItems: 'center', flex: 0.9 }}>
                         <Text style={{ fontFamily: 'Lato-BoldItalic', fontSize: fontScale * 30, color: '#000066', alignSelf: 'center' }}>Please Rate Our Service!!!</Text>
@@ -148,7 +162,7 @@ const styles = {
         flex: 0.8,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingTop: height*1/20
+        paddingTop: height * 1 / 20
         // alignItems: 'center'
     }
 }
