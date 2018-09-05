@@ -124,8 +124,8 @@ class AngryModal extends React.Component {
 
 const styles = {
     smilyeStyle: {
-        width: 180,
-        height: 180
+        width: width/3.5,
+        height: width/3.5
     },
     textStyle: {
         width: '100%',

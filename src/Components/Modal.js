@@ -34,25 +34,28 @@ class Modal extends React.Component {
                     style={{
                         minHeight: height * 4, width: width * 2, position: "absolute", zIndex: 999,
                     }}>
-                    <TouchableOpacity style={{ height: height, justifyContent: 'center' }} activeOpacity={1} >
-                        <View style={{ flex: 0.8, width: width * 1 / 1.1, borderColor: "#bdc3c7", borderWidth: 1, backgroundColor: "#ecf0f1", alignSelf: "center", marginBottom: height * 1 / 30 }}>
+                    <TouchableOpacity style={{ height: height, justifyContent: 'center', alignSelf: "center" }} activeOpacity={1} >
+                        <View style={{ flex: 0.8, width: width * 1 / 1.1, borderColor: "#bdc3c7", borderWidth: 1, backgroundColor: "#ecf0f1", alignSelf: "center", marginBottom: height * 1 / 30,  }}>
                             <View style={{ alignSelf: 'flex-end', padding: width * 1 / 80, marginBottom: height * 1 / 35 }}>
                                 <TouchableOpacity onPress={() => { Tts.stop(); this.props.setDefault() }}>
                                     <Image style={{ width: 25, height: 25 }} source={require('../../assets/no.png')} />
                                 </TouchableOpacity>
                             </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <View style={{ flex: 0.33, paddingLeft: width * 1 / 30, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Image resizeMode="contain" style={styles.smilyeStyle}
-                                        source={this.props.smilyeImage}
-                                    />
-                                </View>
-                                <View style={{ flex: 0.67, alignItems: 'center', justifyContent: 'center', paddingRight: width * 1 / 80 }}>
-                                    <Text style={{ fontFamily: 'Lato-Regular', color: '#2c3e50', textAlign: 'center', alignSelf: 'center', fontSize: fontScale * 20 }}>{this.props.text}</Text>
-                                    <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', marginTop: height * 1 / 40, width: width * 1 / 5, borderRadius: 5,  padding: width * 1 / 40 }} full onPress={() => { Tts.stop(); this.props.setDefault(); this.props.navigateToForm() }}>
-                                        <Icon name="message" size={40} color="#000" />
-                                        <Text style={{ fontFamily: 'Lato-Regular', textAlign: 'center' }} >Tell us more ?</Text>
-                                    </TouchableOpacity>
+                            <View style={{ flex: 0.8, width: width * 1 / 1.1,  alignSelf: "center", justifyContent: "center" }}>
+
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <View style={{ flex: 0.33, paddingLeft: width * 1 / 30, justifyContent: 'center', alignItems: 'center' }}>
+                                        <Image resizeMode="contain" style={styles.smilyeStyle}
+                                            source={this.props.smilyeImage}
+                                        />
+                                    </View>
+                                    <View style={{ flex: 0.67, alignItems: 'center', justifyContent: 'center', paddingRight: width * 1 / 80 }}>
+                                        <Text style={{ fontFamily: 'Lato-Regular', color: '#2c3e50', textAlign: 'center', alignSelf: 'center', fontSize: fontScale * 20 }}>{this.props.text}</Text>
+                                        <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', marginTop: height * 1 / 40, width: width * 1 / 5, borderRadius: 5, padding: width * 1 / 40 }} full onPress={() => { Tts.stop(); this.props.setDefault(); this.props.navigateToForm() }}>
+                                            <Icon name="message" size={60} color="#000" />
+                                            <Text style={{ fontFamily: 'Lato-Regular', textAlign: 'center' }} >Tell us more ?</Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                             </View>
                         </View>
@@ -68,8 +71,8 @@ const styles = {
         alignSelf: 'center'
     },
     smilyeStyle: {
-        width: 180,
-        height: 180
+        width: width/3.5,
+        height: width/3.5
     },
     textStyle: {
         width: '100%',
